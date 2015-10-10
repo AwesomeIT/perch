@@ -1,0 +1,165 @@
+swagger: '2.0'
+info:
+  title: BirdFeed
+  description: Provide for and analyze analytics on the quality of spoken English.
+  version: 1.0.0
+host: api.birdfeed.herokuapp.com
+schemes:
+  - https
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /samples:
+    get:
+      summary: Audio Samples
+      description: |
+        Retrieve a list of audio sample resources.
+      parameters:
+        - name: limit
+          in: query
+          description: Number of audio samples to return
+          required: false
+          type: integer
+      tags:
+        - Samples
+      responses:
+        '200':
+          description: An array of samples
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Sample'
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+  /samples/{id}:
+    get: 
+      summary: Audio samples
+      description: |
+        Retrieve an audio sample by its ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of audio sample resource
+          required: true
+          type: integer
+      tags:
+        - Samples
+      responses:
+        '200':
+          description: An audio sample resource
+          schema:
+            $ref: '#/definitions/Sample'
+          default:
+            description: Unexpected error
+            schema: 
+              $ref: '#/definitions/Error'
+  /samples/create:
+    post:
+      summary: Create audio samples
+      description: |
+        Create an audio sample
+      parameters: 
+        - name: filename
+          in: body
+          description: Desired file name and extension of sample
+          required: true
+          type: string
+        - name: sample
+          in: body
+          description: Raw bit data of the audio file you wish to use to create a sample
+          required: true
+          type: file
+      tags: 
+        - Samples
+      responses:
+        '201':
+          description: A newly created audio sample resource
+          schema:
+            $ref: '#/definitions/Sample'
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+definitions:
+  Sample:
+    type: object
+    properties:
+      id: 
+        type: string
+        description: 'Unique ID for each audio sample'
+      filename: 
+        type: string
+        description: 'Filename of audio sample'
+      date_added:
+        type: string
+        format: date-time
+        description: 'Timestamp of when sample was added'
+      total_scores:
+        type: integer
+        description: 'Number of times that this sample has been graded in an experiment'
+      avg_score:
+        type: number
+        description: 'Average linguistic quality of audio sample'
+      expected_score:
+        type: number
+        description: 'Expected linguistic quality score of audio sample'
+      tags:
+        type: array
+        items:
+          type: string
+        description: 'Tags describing audio sample'
+        maximum: 5
+  Experiment:
+    type: object
+    properties:
+      id: 
+        type: string
+        description: 'Unique ID for each experiment'
+      name: 
+        type: string
+        description: 'User-defined name for experiment'
+        maximum: 80
+      tags:
+        type: array
+        items:
+          type: string
+        description: 'Tags describing the experiment'
+      samples:
+        type: array
+        items: 
+          type: string
+        description: 'The audio samples used for scoring'
+      scores:
+        type: array
+        items:
+          type: string
+        description: 'Scores submitted as part of this experiment, by ID'
+  Score:
+    type: object
+    properties:
+      user_id: 
+        type: string
+        description: 'The user ID of the scorer'
+      sample_id:
+        type: string
+        description: 'The ID of the sample being scored'
+      score:
+        type: number
+        format: double
+        maximum: 1
+        minimum: 0
+        description: 'The score of the sample, 1 indicating perfect English speech, 0 indicating indiscernable speech'
+  Error:
+    type: object
+    properties:
+      message:
+        type: string
+        description: 'Details about the error encountered'
+      attempt:
+        type: string
+        description: 'URL of the resource requested which induced the error'
+        
+      
