@@ -67,7 +67,8 @@ definitions:
         type: string
         description: 'Filename of audio sample'
       date_added:
-        type: datetime
+        type: string
+        format: date-time
         description: 'Timestamp of when sample was added'
       total_scores:
         type: integer
