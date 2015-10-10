@@ -36,9 +36,9 @@ paths:
               $ref: '#/definitions/Error'
   /samples/{id}:
     get: 
-      summary: Audio Samples
+      summary: Audio samples
       description: |
-        Retrieve an audio sample by its ID.
+        Retrieve an audio sample by its ID
       parameters:
         - name: id
           in: path
@@ -56,11 +56,38 @@ paths:
             description: Unexpected error
             schema: 
               $ref: '#/definitions/Error'
+  /samples/create:
+    post:
+      summary: Create audio samples
+      description: |
+        Create an audio sample
+      parameters: 
+        - name: filename
+          in: body
+          description: Desired file name and extension of sample
+          required: true
+          type: string
+        - name: sample
+          in: body
+          description: Raw bit data of the audio file you wish to use to create a sample
+          required: true
+          type: file
+      tags: 
+        - Samples
+      responses:
+        '201':
+          description: A newly created audio sample resource
+          schema:
+            $ref: '#/definitions/Sample'
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
 definitions:
   Sample:
     type: object
     properties:
-      sample_id: 
+      id: 
         type: string
         description: 'Unique ID for each audio sample'
       filename: 
@@ -79,14 +106,37 @@ definitions:
       expected_score:
         type: number
         description: 'Expected linguistic quality score of audio sample'
+      tags:
+        type: array
+        items:
+          type: string
+        description: 'Tags describing audio sample'
+        maximum: 5
   Experiment:
     type: object
     properties:
+      id: 
+        type: string
+        description: 'Unique ID for each experiment'
+      name: 
+        type: string
+        description: 'User-defined name for experiment'
+        maximum: 80
+      tags:
+        type: array
+        items:
+          type: string
+        description: 'Tags describing the experiment'
       samples:
         type: array
         items: 
           type: string
         description: 'The audio samples used for scoring'
+      scores:
+        type: array
+        items:
+          type: string
+        description: 'Scores submitted as part of this experiment, by ID'
   Score:
     type: object
     properties:
