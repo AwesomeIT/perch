@@ -6,15 +6,6 @@ info:
 host: birdfeed.herokuapp.com
 schemes:
   - https
-security:
-  type: oauth2
-  authorizationUrl: https://birdfeed.herokuapp.com/v1/auth
-  flow: implicit
-  scopes:
-    client:
-      - write:participant: Allow the client application to register participants
-    participant:
-      - write:score: Allow the participant to record scores
 basePath: /v1
 produces:
   - application/json
@@ -32,16 +23,16 @@ paths:
       tags:
         - Samples
       responses:
-        '200':
+        200:
           description: An array of samples
           schema:
             type: array
             items:
               $ref: '#/definitions/Sample'
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
   /samples/set:
     post:
       summary: Retrieve a set of audio samples
@@ -51,23 +42,24 @@ paths:
         - name: ids
           in: body
           description: Array of audio sample IDs
-          type: array
-          items:
-            type: string
+          schema:
+            type: array
+            items:
+              type: string
           required: true
       tags: 
         - Samples
       responses: 
-        '200':
+        200:
           description: An array of the desired samples. 
           schema:
             type: array
             items:
               $ref: '#/definitions/Sample'
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
   /samples/search:
     get:
       summary: Retrieve audio sample(s) by specified criterion.
@@ -92,16 +84,16 @@ paths:
       tags:
         - Samples
       responses: 
-        '200': 
+        200: 
           description: An array of the desired samples.
           schema:
             type: array
             items:
               $ref: '#/definitions/Sample'
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'              
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'              
   /samples/{id}:
     get: 
       summary: Audio samples
@@ -116,14 +108,50 @@ paths:
       tags:
         - Samples
       responses:
-        '200':
+        200:
           description: An audio sample resource
           schema:
             $ref: '#/definitions/Sample'
-          default:
-            description: Unexpected error
-            schema: 
-              $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema: 
+            $ref: '#/definitions/Error'
+    post:
+      summary: Audio samples
+      description: |
+        Modify an audio sample by its ID. If a field is left empty, it will not be modified.
+      parameters: 
+        - name: id
+          in: path
+          description: ID of audio sample resource
+          required: true
+          type: integer
+        - name: modify
+          in: body
+          description: Modified fields 
+          required: true
+          schema:
+            type: object
+            properties:
+              filename:
+                type: string
+              expected_score:
+                type: number
+              tags:
+                type: array
+                items:
+                  type: string
+      tags:
+        - Samples
+      responses:
+        200:
+          description: Modified Sample resource
+          schema: 
+            $ref: '#/definitions/Sample'
+        500: 
+          description: Unexpected error
+          schema: 
+            $ref: '#/definitions/Error'
     delete:
       summary: Audio samples
       description: |
@@ -137,82 +165,42 @@ paths:
       tags: 
         - Samples
       responses:
-        '200':
+        200:
           description: Sample was successfully deleted
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'        
-    post:
-      summary: Audio samples
-      description: |
-        Modify an audio sample by its ID
-      parameters: 
-        - name: id
-          in: path
-          description: ID of audio sample resource
-          required: true
-          type: integer
-      tags:
-        - Samples
-      responses:
-        '200':
-          description: Modified object
-          schema: 
-            $ref: '#/definitions/Sample'
-          default: 
-            description: Unexpected error
-            schema: 
-              $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'  
   /samples/create:
     post:
       summary: Create audio samples
       description: |
         Create an audio sample. Returns ID of newly created resource. 
       parameters: 
-        - name: filename
-          in: body
-          description: Desired file name and extension of sample
-          required: true
-          type: string
         - name: sample
           in: body
-          description: Raw bit data of the audio file you wish to use to create a sample
+          description: The filename and raw uncompressed audio snippet for desired sample
+          schema:
+            type: object
+            properties:
+              filename: 
+                type: string
+              data:
+                type: string
+                format: file
           required: true
-          type: file
       tags: 
         - Samples
       responses:
-        '201':
-          description: A newly created audio sample resource
-          type: string
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
-  /experiments:
-    get: 
-      summary: Retrieve experiments
-      description: |
-        Retrieve a list of experiment resources
-      parameters: 
-        - name: limit
-          in: query
-          description: Number of experiments to return 
-          type: integer
-      tags: 
-        - Experiments
-      responses: 
-        '200':
-          description: An array of experiments
-          type: array
-          items:
-            $ref: '#/definitions/Experiment'
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
-  
+        201:
+          description: The ID of the newly created Sample resource
+          schema:
+            type: string
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
   /experiments/{id}:
     get:
       summary: Retrieve experiment by ID
@@ -227,35 +215,50 @@ paths:
       tags: 
         - Experiments 
       responses:
-        '200':
+        200:
           description: An experiment resource
           schema:
             $ref: '#/definitions/Experiment'
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
     post:
-      summary: Modify an experiment by ID
+      summary: Modify an experiment by ID.
       description: |
-        Modify an experiment by its ID
+        Modify an experiment by its ID. If a field is left empty, it will not be modified.
       parameters:
         - name: id
           in: path
-          description: ID of experiment resource'
+          description: ID of experiment resource
           required: true
           type: string
+        - name: modify
+          in: body
+          description: Modified fields
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              expiry_date:
+                type: string
+                format: date-time
+              tags: 
+                type: array
+                items:
+                  type: string
       tags:
         - Experiments
       responses:
-        '200':
+        200:
           description: Modified experiment resource
           schema:
             $ref: '#/definitions/Experiment'
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
     delete:
       summary: Delete an experiment by ID
       description: | 
@@ -269,46 +272,48 @@ paths:
       tags:
         - Experiments
       responses: 
-        '200':
-          description: Sample was successfully deleted
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Experiment was successfully deleted
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
   /experiments/create:
     post:
       summary: Create an experiment
       description: |
         Create an experiment. Returns the ID of the newly created experiment resource.
       parameters:
-        - name: name
+        - name: experiment
           in: body
-          description: Desired name of experiment
+          description: The name, tags, and sample IDs to create the Experiment resource
           required: true
-          type: string
-        - name: tags
-          in: body
-          description: Tags describing the experiment
-          type: array
-          items: 
-            type: string
-        - name: samples
-          in: body
-          description: Array of sample IDs
-          required: true
-          type: array
-          items:
-            type: string
+          schema:
+            type: object
+            properties:
+              name: 
+                type: string
+              tags:
+                type: array
+                items:
+                  type: string
+              samples:
+                type: array
+                items:
+                  type: string
       tags:
         - Experiments
       responses:
-        '201':
-          description: The ID of a newly created resource
-          type: string
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        201:
+          description: The ID of the newly created Experiment resource
+          schema:
+            type: string
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
   /scores/record:
     post:
       summary: Record a score
@@ -318,36 +323,52 @@ paths:
         - name: scores
           in: body
           description: An array of Score resources
-          required: true
-          type: array
-          items:
-            $ref: '#/definitions/Score'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Score'
       tags:
         - Scores
       responses:
-        '201':
+        201:
           description: An array of the IDs of created Score resources
           schema:
             type: array
             items:
               type: string
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'  
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  
   /participant/register:
-    post: 
-      summary: Create a participant 
-      description: | 
-        Register a participant with the API.
+    post:
+      summary: Register a participant
+      description: |
+        Register a participant / new user from a client to the BirdFeed API.
       parameters:
-        - name: email
+        - name: participant
           in: body
-          description: The participant's e-mail address
-          required: true
-          type: string
-          format: email
-          
+          description: Data for new participant resource
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+      tags:
+        - Participants
+      responses:
+        201:
+          description: The ID of the newly created Participant resource
+          schema:
+            type: string
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
 definitions:
   Sample:
     type: object
@@ -418,9 +439,9 @@ definitions:
   Score:
     type: object
     properties:
-      user_id: 
+      participant_id: 
         type: string
-        description: 'The user ID of the scorer'
+        description: 'The ID of the participant'
       sample_id:
         type: string
         description: 'The ID of the sample being scored'
@@ -430,6 +451,26 @@ definitions:
         maximum: 1
         minimum: 0
         description: 'The score of the sample, 1 indicating perfect English speech, 0 indicating indiscernable speech'
+  Participant:
+    type: object
+    properties:
+      id:
+        type: string
+        description: 'The unique ID of the participant'
+      username:
+        type: string
+        description: 'A unique user defined name'
+      salt:
+        type: string
+        description: 'A salt of the plaintext password'
+      date_created:
+        type: string
+        format: date-time
+        description: 'Timestamp of when participant was created'
+      quality:
+        type: number
+        format: double
+        description: 'The quality of the participants ratings'
   Error:
     type: object
     properties:
@@ -443,4 +484,3 @@ definitions:
         type: object
         description: 'The body of the request, if present'
         
-      
