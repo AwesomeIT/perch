@@ -6,13 +6,23 @@ info:
 host: birdfeed.herokuapp.com
 schemes:
   - https
+securityDefinitions:
+  birdcage:
+    type: oauth2
+    authorizationUrl: https://birdfeed.herokuapp.com/v1/auth
+    flow: implicit
+    scopes:
+      client: Allows a BirdFeed consumer to register participants
+      participant: Allows a Participant resource to record scores from a client, retrieve samples and experiments
+      user: Allows non-participant users to modify samples and experiments
+      administrator: Allows unrestricted access to all resources
 basePath: /v1
 produces:
   - application/json
 paths:
   /samples:
     get:
-      summary: Audio Samples
+      summary: Retrieve samples
       description: |
         Retrieve a list of audio sample resources. By default, a limit of 10 samples are returned.
       parameters:
@@ -33,6 +43,11 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+      security:
+        - birdcage:
+          - participant
+          - user
+          - administrator
   /samples/set:
     post:
       summary: Retrieve a set of audio samples
@@ -60,6 +75,11 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+      security:
+        - birdcage:
+          - participant
+          - user
+          - administrator
   /samples/search:
     get:
       summary: Retrieve audio sample(s) by specified criterion.
@@ -93,7 +113,12 @@ paths:
         500:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'              
+            $ref: '#/definitions/Error'    
+      security:
+        - birdcage:
+          - participant
+          - user
+          - administrator
   /samples/{id}:
     get: 
       summary: Audio samples
@@ -115,7 +140,12 @@ paths:
         500:
           description: Unexpected error
           schema: 
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/Error
+      security:
+        - birdcage:
+          - participant
+          - user
+          - administrator
     post:
       summary: Audio samples
       description: |
@@ -124,12 +154,11 @@ paths:
         - name: id
           in: path
           description: ID of audio sample resource
-          required: true
           type: integer
+          required: true
         - name: modify
           in: body
           description: Modified fields 
-          required: true
           schema:
             type: object
             properties:
@@ -141,6 +170,7 @@ paths:
                 type: array
                 items:
                   type: string
+          required: true
       tags:
         - Samples
       responses:
@@ -152,6 +182,10 @@ paths:
           description: Unexpected error
           schema: 
             $ref: '#/definitions/Error'
+      security:
+        - birdcage:
+          - user
+          - administrator
     delete:
       summary: Audio samples
       description: |
@@ -160,8 +194,8 @@ paths:
         - name: id
           in: path
           description: ID of audio sample resource
-          required: true
           type: integer
+          required: true
       tags: 
         - Samples
       responses:
@@ -170,7 +204,11 @@ paths:
         500:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'  
+            $ref: '#/definitions/Error' 
+      security:
+        - birdcage:
+          - user
+          - administrator
   /samples/create:
     post:
       summary: Create audio samples
@@ -200,7 +238,10 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-
+      security:
+        - birdcage:
+          - user
+          - administrator
   /experiments/{id}:
     get:
       summary: Retrieve experiment by ID
@@ -210,8 +251,8 @@ paths:
         - name: id
           in: path
           description: ID of experiment resource
-          required: true
           type: string
+          required: true
       tags: 
         - Experiments 
       responses:
@@ -223,6 +264,11 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+      security:
+        - birdcage:
+          - participant
+          - user
+          - administrator
     post:
       summary: Modify an experiment by ID.
       description: |
@@ -231,8 +277,8 @@ paths:
         - name: id
           in: path
           description: ID of experiment resource
-          required: true
           type: string
+          required: true
         - name: modify
           in: body
           description: Modified fields
@@ -248,6 +294,7 @@ paths:
                 type: array
                 items:
                   type: string
+          required: true
       tags:
         - Experiments
       responses:
@@ -259,6 +306,10 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+      security:
+        - birdcage:
+          - user
+          - administrator
     delete:
       summary: Delete an experiment by ID
       description: | 
@@ -267,8 +318,8 @@ paths:
         - name: id
           in: path
           description: ID of experiment resource
-          required: true
           type: string
+          required: true
       tags:
         - Experiments
       responses: 
@@ -278,6 +329,10 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+      security:
+        - birdcage:
+          - user
+          - administrator
 
   /experiments/create:
     post:
@@ -288,7 +343,6 @@ paths:
         - name: experiment
           in: body
           description: The name, tags, and sample IDs to create the Experiment resource
-          required: true
           schema:
             type: object
             properties:
@@ -302,6 +356,7 @@ paths:
                 type: array
                 items:
                   type: string
+          required: true
       tags:
         - Experiments
       responses:
@@ -313,6 +368,10 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+      security:
+        - birdcage:
+          - user
+          - administrator
 
   /scores/record:
     post:
@@ -327,6 +386,7 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Score'
+          required: true
       tags:
         - Scores
       responses:
@@ -340,12 +400,15 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+      security:
+        - birdcage:
+          - participant
   
   /participant/register:
     post:
       summary: Register a participant
       description: |
-        Register a participant / new user from a client to the BirdFeed API.
+        Register a participant / new user from a client to the BirdFeed API. 
       parameters:
         - name: participant
           in: body
@@ -357,6 +420,7 @@ paths:
                 type: string
               password:
                 type: string
+          required: true
       tags:
         - Participants
       responses:
@@ -368,6 +432,9 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+      security:
+        - birdcage:
+          - client
 
 definitions:
   Sample:
