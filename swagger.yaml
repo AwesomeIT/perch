@@ -3,6 +3,12 @@ info:
   title: BirdFeed
   description: Provide for and analyze analytics on the quality of spoken English.
   version: 1.0.0
+  contact:
+    name: David Stancu
+    email: dstancu@nyu.edu
+  license:
+    name: MIT
+    url: https://github.com/mach-kernel/birdfeed/blob/master/LICENSE
 host: birdfeed.herokuapp.com
 schemes:
   - https
