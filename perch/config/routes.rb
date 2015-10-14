@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
+
+  root 'dashboard#welcome'
+
+  #get 'dashboard/experiments', to 'dashboard#experiments'
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
