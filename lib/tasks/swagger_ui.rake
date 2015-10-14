@@ -9,6 +9,18 @@ namespace :swagger_ui do
 		end
 	end
 
+	task :fetch_schema do
+		p "Fetching latest schema from birdfeed/api-schema"
+		unless system "git clone https://github.com/birdfeed/api-schema"
+			abort "Something went wrong"
+		end
+
+		p "Placing in public"
+		FileUtils.mv("#{Rails.root}/api-schema/swagger.json", "#{Rails.root}/public/swagger.json")
+		p "Deleting api-schema directory"
+		FileUtils.rm_rf("#{Rails.root}/api-schema")
+	end
+
 	task :install_deps do
 		Dir.chdir('./swagger-ui') do 
 			p "Installing dependencies from npm"
@@ -32,7 +44,7 @@ namespace :swagger_ui do
 		end
 	end
 
-	task :build => [:cleanup, :clone_repo, :install_deps, :gulp_to_public] do 
+	task :build => [:cleanup, :clone_repo, :fetch_schema, :install_deps, :gulp_to_public] do 
 		p "Docs deployed to public assets directory"
 	end
 end
