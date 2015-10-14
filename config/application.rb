@@ -22,5 +22,8 @@ module Perch
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # Serve outside of pipeline, e.g, in /public
+    config.serve_static_files = true
   end
 end

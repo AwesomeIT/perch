@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
 
+  # Static routes
+  get '/docs', to: redirect('/docs/index.html')
+
+  # Rails controller#action routes
   root 'dashboard#welcome'
 
   #get 'dashboard/experiments', to 'dashboard#experiments'
