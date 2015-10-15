@@ -11,5 +11,10 @@ development:
   database: birdfeed
 
 production:
-  <<: *default
-  database: birdfeed_prod
+  adapter: postgresql
+  encoding: unicode
+  username: <%= ENV["PG_U"] %>
+  password: <%= ENV["PG_P"] %>
+  database: <%= ENV["PG_D"] %>
+  pool: 5
+  timeout: 5000
