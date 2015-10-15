@@ -46,6 +46,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Login and enforcement
 gem 'devise', '~> 3.5.2'
 
-# Heroku is a pita
-gem 'rails_12factor', group: :production
-gem 'therubyracer', '~> 0.12.2', group: :production
+group :production do 
+  # Heroku is a pita
+  gem 'rails_12factor'
+  gem 'therubyracer', '~> 0.12.2'
+end
