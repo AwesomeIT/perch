@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  username: MyString
+  salt: MyString
+  quality: 9.99
+
+two:
+  username: MyString
+  salt: MyString
+  quality: 9.99

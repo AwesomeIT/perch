@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  filename: MyString
+  total_scores: 1
+  avg_score: 9.99
+  expected_score: 9.99
+
+two:
+  filename: MyString
+  total_scores: 1
+  avg_score: 9.99
+  expected_score: 9.99

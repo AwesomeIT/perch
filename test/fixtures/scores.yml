@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  participant_id: MyString
+  sample_id: MyString
+  rating: 9.99
+
+two:
+  participant_id: MyString
+  sample_id: MyString
+  rating: 9.99
