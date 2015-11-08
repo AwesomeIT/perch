@@ -45,3 +45,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Login and enforcement
 gem 'devise', '~> 3.5.2'
+
+# Background workers
+gem 'sidekiq', '~> 3.5', '>= 3.5.3'
