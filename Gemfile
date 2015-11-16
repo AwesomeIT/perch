@@ -48,3 +48,11 @@ gem 'devise', '~> 3.5.2'
 
 # Background workers
 gem 'sidekiq', '~> 3.5', '>= 3.5.3'
+
+# Sidekiq
+gem 'sinatra', '~> 1.4', '>= 1.4.6'
+
+# TODO: Ideally make API a seperate Gem, rack-mountable, with isolated models.
+# 11/15/15 was going to do this but gave up due to time constraints
+# using routed API instead.
+# gem 'birdfeed-api', :git => 'https://github.com/birdfeed/sinatra-server.git'

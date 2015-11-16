@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   devise_for :users
 
@@ -6,6 +8,11 @@ Rails.application.routes.draw do
 
   # Rails controller#action routes
   root 'dashboard#welcome'
+
+  authenticate :user, lambda { |user| user.is_admin? } do
+    mount Sidekiq::Web => "/sidekiq"
+    get '/dashboard/admin', to: 'dashboard#services_admin'
+  end
 
   #get 'dashboard/experiments', to 'dashboard#experiments'
   

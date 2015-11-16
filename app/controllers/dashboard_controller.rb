@@ -3,4 +3,7 @@ class DashboardController < ApplicationController
   
 	def welcome
 	end
+
+  def services_admin
+  end
 end
