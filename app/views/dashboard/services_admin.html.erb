@@ -1,0 +1,59 @@
+<% content_for :title, "Services Administrator" %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <h1 class="page-header">System Status</h1>
+            <p>To view more information about Sidekiq jobs, view the "background jobs" tab.</p>
+            <br />
+            <table class="table table-hover table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Service</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>API</td>
+                <td>OK (4 nodes)</td>
+              </tr>
+              <tr>
+                <td>Database</td>
+                <td>OK</td>
+              </tr>
+              <tr>
+                <td>Redis</td>
+                <td>OK</td>
+              </tr>
+              <tr>
+                <td>Sidekiq</td>
+                <td>OK</td>
+              </tr>
+            </tbody>
+          </table>
+          <hr />
+          <h3>Manage API Nodes</h3>
+          <p>For the API to be functional one node must be operational at any given time. By default Perch will mount one API instance within its own routes, however, additional nodes added here can be used along with your HAProxy solution.</p>
+          <table class="table table-hover table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Node</th>
+                <th>Location</th>
+                <th>+</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1 (root)</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>somelocation:1337</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,7 @@
 require 'sidekiq/web'
 
+base_url = '/v1'
+
 Rails.application.routes.draw do
   devise_for :users
 
@@ -9,10 +11,15 @@ Rails.application.routes.draw do
   # Rails controller#action routes
   root 'dashboard#welcome'
 
+  # Exclude users from administrative duties at routes level
   authenticate :user, lambda { |user| user.is_admin? } do
     mount Sidekiq::Web => "/sidekiq"
     get '/dashboard/admin', to: 'dashboard#services_admin'
   end
+
+  #### API ROUTES ####
+
+  post base_url + '/participant/register', to: 'api/participant#register'
 
   #get 'dashboard/experiments', to 'dashboard#experiments'
   
