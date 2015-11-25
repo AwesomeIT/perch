@@ -1,11 +1,9 @@
-require 'json'
 require 'bcrypt'
 
 class Api::ParticipantController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def register
-    p params
     # Validate request
     unless params.has_key?(:username) && params.has_key?(:password)
       @error = Error.create(
