@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   post base_url + '/participant/register', to: 'api/participant#register'
 
   post base_url + '/experiment/create', to: 'api/experiment#create'
+  post base_url + '/experiment/:id', to: 'api/experiment#modify'
 
   #get 'dashboard/experiments', to 'dashboard#experiments'
   
