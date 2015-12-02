@@ -24,6 +24,8 @@ Rails.application.routes.draw do
 
   post base_url + '/experiment/create', to: 'api/experiment#create'
   post base_url + '/experiment/:id', to: 'api/experiment#modify'
+  get base_url + '/experiment/:id', to: 'api/experiment#retrieve'
+  delete base_url + '/experiment/:id', to: 'api/experiment#delete'
 
   #get 'dashboard/experiments', to 'dashboard#experiments'
   
