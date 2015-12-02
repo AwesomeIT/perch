@@ -27,6 +27,12 @@ Rails.application.routes.draw do
   get base_url + '/experiment/:id', to: 'api/experiment#retrieve'
   delete base_url + '/experiment/:id', to: 'api/experiment#delete'
 
+  post base_url + '/samples/create', to: 'api/samples#create'
+  post base_url + '/samples/set', to: 'api/samples#set_retrieve'
+  get base_url + '/samples/:id', to: 'api/samples#retrieve'
+  delete base_url + '/samples/:id', to: 'api/samples#delete'
+
+
   #get 'dashboard/experiments', to 'dashboard#experiments'
   
   # The priority is based upon order of creation: first created -> highest priority.
