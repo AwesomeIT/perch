@@ -3,6 +3,7 @@ require 'sidekiq/web'
 base_url = '/v1'
 
 Rails.application.routes.draw do
+  use_doorkeeper
   devise_for :users
 
   # Static routes
