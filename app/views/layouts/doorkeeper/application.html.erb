@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <title><%= t('doorkeeper.layouts.application.title') %></title>
@@ -19,5 +19,47 @@
 
   <%= yield %>
 </div>
+</body>
+</html>
+ -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title><%= "Perch: " + t('doorkeeper.layouts.application.title') %></title>
+
+<!-- Stylesheets -->
+<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- JS -->
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= render partial: "layouts/header" %>
+<% if current_user %>
+  <%= render partial: "layouts/sidebar" %>
+
+  <div id="container">
+  <%- if flash[:notice].present? %>
+    <div class="alert alert-info">
+      <%= flash[:notice] %>
+    </div>
+  <% end -%>
+
+  <%= yield %>
+</div>
+<% end %>
+
+<div id="page-content-wrapper">
+<%= yield %>
+</div>
+
+<%= render partial: "layouts/footer" %>
+
 </body>
 </html>

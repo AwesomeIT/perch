@@ -108,6 +108,10 @@ html { height: 100%;}
 .sidebar-nav li:nth-child(10):before {
     background-color: #ec1b5a;   
 }
+.sidebar-nav li:nth-child(11):before {
+    background-color: #17C77C;   
+}
+
 .sidebar-nav li:hover:before,
 .sidebar-nav li.open:hover:before {
     width: 100%;
