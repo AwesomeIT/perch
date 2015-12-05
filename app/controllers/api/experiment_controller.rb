@@ -63,8 +63,8 @@ class Api::ExperimentController < ApplicationController
 
     # Edit Experiment
     @found_experiment.name = params[:name] if params.key?(:name)
-    @found_experiment.name = params[:expiry_date] if params.key?(:expiry_date)
-    @found_experiment.name = params[:tags] if params.key?(:tags)
+    @found_experiment.expiry_date = params[:expiry_date] if params.key?(:expiry_date)
+    @found_experiment.tags = params[:tags] if params.key?(:tags)
 
     # Attempt to save experiment
     begin
