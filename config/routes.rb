@@ -33,7 +33,10 @@ Rails.application.routes.draw do
   post base_url + '/samples/set', to: 'api/samples#set_retrieve'
   get base_url + '/samples/:id', to: 'api/samples#retrieve_by_id'
   delete base_url + '/samples/:id', to: 'api/samples#delete'
+  post base_url + '/samples/:id', to: 'api/samples#modify'
+  get base_url + '/samples/search', to: 'api/samples#search'
 
+  post base_url + '/scores/record', to: 'api/scores#create'
 
   #get 'dashboard/experiments', to 'dashboard#experiments'
   
