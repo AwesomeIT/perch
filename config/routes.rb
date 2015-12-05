@@ -10,12 +10,12 @@ Rails.application.routes.draw do
   get '/docs', to: redirect('/docs/index.html')
 
   # Rails controller#action routes
-  root 'dashboard#welcome'
+  root 'dashboard/home#index'
 
   # Exclude users from administrative duties at routes level
   authenticate :user, lambda { |user| user.is_admin? } do
     mount Sidekiq::Web => "/sidekiq"
-    get '/dashboard/admin', to: 'dashboard#services_admin'
+    get '/dashboard/admin', to: 'dashboard/services_admin#index'
   end
 
   #### API ROUTES ####
