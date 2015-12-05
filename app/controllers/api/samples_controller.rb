@@ -63,7 +63,7 @@ class Api::SamplesController < ApplicationController
     end
   end
 
-  def retrieve
+  def retrieve_by_id
     # Validate ID
     unless params.has_key(:id)
       @error = Error.create(
@@ -92,12 +92,18 @@ class Api::SamplesController < ApplicationController
   def retrieve_set
     @found_samples = []
     for id in params[:ids] do
-      begin
       @found_samples << Sample.find(id)
-      rescue ActiveRecord::RecordNotFound
-      end
     end
-    render(status: 200, json: @found_samples) and return
+    render(status: 200, json: @found_samples)
+  end
+
+  def retrieve
+    @num_samples = 10
+    if params.has_key?(:limit)
+      @num_samples = params[:limit]
+    end
+    @found_samples = Sample.last(@num_samples)
+    render(status: 200, json: @found_samples)
   end
 
 end

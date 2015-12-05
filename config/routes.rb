@@ -27,9 +27,11 @@ Rails.application.routes.draw do
   get base_url + '/experiment/:id', to: 'api/experiment#retrieve'
   delete base_url + '/experiment/:id', to: 'api/experiment#delete'
 
+
+  get base_url + '/samples', to: 'api/samples#retrieve'
   post base_url + '/samples/create', to: 'api/samples#create'
   post base_url + '/samples/set', to: 'api/samples#set_retrieve'
-  get base_url + '/samples/:id', to: 'api/samples#retrieve'
+  get base_url + '/samples/:id', to: 'api/samples#retrieve_by_id'
   delete base_url + '/samples/:id', to: 'api/samples#delete'
 
 
