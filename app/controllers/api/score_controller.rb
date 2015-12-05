@@ -1,4 +1,4 @@
-class Api::ScoresController < ApplicationController
+class Api::ScoreController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
