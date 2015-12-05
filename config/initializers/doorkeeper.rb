@@ -3,8 +3,10 @@ Doorkeeper.configure do
   orm :active_record
 
   # This block will be called to check whether the resource owner is authenticated or not.
-  # For BirdFeed, this is the Participant
+  # For BirdFeed, this is the Participant, and we will use our methods to validate
   resource_owner_authenticator do
+    
+    current_user || warden.authenticate!(scope: :user)
     #fail "Please configure doorkeeper resource_owner_authenticator block located in #{__FILE__}"
     # Put your resource owner authentication logic here.
     # Example implementation:
@@ -31,7 +33,7 @@ Doorkeeper.configure do
   # end
 
   # Use a custom class for generating the access token.
-  # https://github.com/doorkeeper-gem/doorkeeper#custom-access-token-generator
+  # https://github.com/doorkeeper-gem/doorkeeper#cusomt-access-token-generator
   # access_token_generator "::Doorkeeper::JWT"
 
   # Reuse access token for the same resource owner within an application (disabled by default)
@@ -62,7 +64,7 @@ Doorkeeper.configure do
   # By default it retrieves first from the `HTTP_AUTHORIZATION` header, then
   # falls back to the `:access_token` or `:bearer_token` params from the `params` object.
   # Check out the wiki for more information on customization
-  # access_token_methods :from_bearer_authorization, :from_access_token_param, :from_bearer_param
+  access_token_methods :from_bearer_authorization, :from_access_token_param, :from_bearer_param
 
   # Change the native redirect uri for client apps
   # When clients register with the following redirect uri, they won't be redirected to any server and the authorization code will be displayed within the provider
@@ -92,13 +94,13 @@ Doorkeeper.configure do
   #   http://tools.ietf.org/html/rfc6819#section-4.4.2
   #   http://tools.ietf.org/html/rfc6819#section-4.4.3
 
-  grant_flows %w(implicit client_credentials password)
+  grant_flows %w(implicit client_credentials authorization_code)
 
   # Under some circumstances you might want to have applications auto-approved,
   # so that the user skips the authorization step.
   # For example if dealing with a trusted application.
   # skip_authorization do |resource_owner, client|
-  #   client.superapp? or resource_owner.admin?
+  #   true
   # end
 
   # WWW-Authenticate Realm (default "Doorkeeper").
