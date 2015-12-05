@@ -18,12 +18,12 @@
 <%= render partial: "layouts/header" %>
 <% if current_user %>
   <%= render partial: "layouts/sidebar" %>
+      <div id="page-content-wrapper">
+          <%= yield %>
+      </div>
+<% else %>
+     <%= yield %>
 <% end %>
-
-<div id="page-content-wrapper">
-<%= yield %>
-</div>
-
 <%= render partial: "layouts/footer" %>
 
 </body>
