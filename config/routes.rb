@@ -21,6 +21,9 @@ Rails.application.routes.draw do
   # Manage participants
   get '/dashboard/participants/index', to: 'dashboard/participant#index'
   get '/dashboard/participants/index/:page', to: 'dashboard/participant#index'
+  
+  get '/dashboard/participants/:id', to: 'dashboard/participant#details'
+  post '/dashboard/participants/:id/reset_pw', to: 'dashboard/participant#reset_pw'
 
   #### API ROUTES ####
 

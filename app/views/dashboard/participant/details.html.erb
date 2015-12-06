@@ -1,0 +1,29 @@
+<% content_for :title, "Participants (#{@participant.username})" %>
+<div class="container">
+  <div class="row">
+    <h3 class="page-header">User Details</h3>
+    <table class="table table-striped table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Reset Password?</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= form_for(:participant, :url => {:controller => "dashboard/participant", :action => "reset_pw"}) do |f| %>
+          <tr>
+            <td> <%= @participant.id %> </td>
+            <td> <%= @participant.username %> </td>
+            <td> <%= f.password_field :password, class: 'form-control' %> </td>
+            <td> <%= f.submit "Save", class: "btn btn-primary btn-block" %> </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  <div class="row">
+    <h3 class="page-header">Experiments Participated In</h3>
+  </div>
+  </div>

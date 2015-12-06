@@ -19,6 +19,9 @@
 <% if current_user %>
   <%= render partial: "layouts/sidebar" %>
       <div id="page-content-wrapper">
+      <div class="container">
+        <div class="row"><%= render partial: "layouts/flash_messages", flash: flash %></div>
+      </div>
           <%= yield %>
       </div>
 <% else %>

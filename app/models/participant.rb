@@ -10,5 +10,9 @@ class Participant < ActiveRecord::Base
       participant.salt == salt
     end
   end
+
+  def bcrypt_salt(password)
+    BCrypt::Password.create(password)
+  end
   
 end
