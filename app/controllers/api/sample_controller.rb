@@ -31,7 +31,7 @@ class Api::SampleController < ApplicationController
       render(status: 500, json: @error) and return
     ensure
       # Everything is OK
-      render(status: 200, nothing: true) and return
+      render(status: 201, json: @new_sample.id) and return
     end
   end
 

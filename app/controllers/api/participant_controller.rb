@@ -32,8 +32,8 @@ class Api::ParticipantController < ApplicationController
 
       render(status: 500, json: @error) and return
     ensure
-      # Everything is OK
-      render(status: 200, nothing: true) and return
+      # Everything is OKs
+      render(status: 201, json: @new_participant.id) and return
     end
   end
 end

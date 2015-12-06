@@ -3,9 +3,10 @@ class Api::ScoreController < ApplicationController
 
   def create
     # Validate request
-    unless params.has_key?(:participant_id) && params.has_key?(:sample_id) && params.has_key?(:rating)
+    unless params.has_key?(:participant_id) && params.has_key?(:sample_id) \
+        && params.has_key?(:rating) && params.has_key?(:experiment_id)
       @error = Error.create(
-          :message => 'Missing data, must have participant id, sample id, and rating.',
+          :message => 'Missing data, must have experiment id, participant id, sample id, and rating.',
           :path => request.env['PATH_INFO'],
           :request => params.to_json
       )
@@ -15,6 +16,7 @@ class Api::ScoreController < ApplicationController
     #Find participant and sample to ensure valid ids
     begin
       @found_participant = Participant.find(params[:participant_id])
+      @found_experiment = Experiment.find(params[:experiment_id])
       @found_sample = Sample.find(params[:sample_id])
     rescue ActiveRecord::RecordNotFound
       @error = Error.create(
@@ -28,6 +30,7 @@ class Api::ScoreController < ApplicationController
     # Create score
     @new_score = Score.new(
         :participant_id => params[:participant_id],
+        :experiment_id => params[:experiment_id],
         :sample_id => params[:sample_id],
         :rating => params[:rating]
     )
@@ -44,7 +47,7 @@ class Api::ScoreController < ApplicationController
       render(status: 500, json: @error) and return
     ensure
       # Everything is OK
-      render(status: 200, nothing: true) and return
+      render(status: 201, json: @new_score.id) and return
     end
   end
 
