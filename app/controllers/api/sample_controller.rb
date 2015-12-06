@@ -1,4 +1,4 @@
-class Api::SamplesController < ApplicationController
+class Api::SampleController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create

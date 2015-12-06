@@ -18,6 +18,10 @@ Rails.application.routes.draw do
     get '/dashboard/admin', to: 'dashboard/services_admin#index'
   end
 
+  # Manage participants
+  get '/dashboard/participants/index', to: 'dashboard/participant#index'
+  get '/dashboard/participants/index/:page', to: 'dashboard/participant#index'
+
   #### API ROUTES ####
 
   post base_url + '/participant/register', to: 'api/participant#register'
@@ -28,15 +32,15 @@ Rails.application.routes.draw do
   delete base_url + '/experiment/:id', to: 'api/experiment#delete'
 
 
-  get base_url + '/samples', to: 'api/samples#retrieve'
-  post base_url + '/samples/create', to: 'api/samples#create'
-  post base_url + '/samples/set', to: 'api/samples#set_retrieve'
-  get base_url + '/samples/:id', to: 'api/samples#retrieve_by_id'
-  delete base_url + '/samples/:id', to: 'api/samples#delete'
-  post base_url + '/samples/:id', to: 'api/samples#modify'
-  get base_url + '/samples/search', to: 'api/samples#search'
+  get base_url + '/sample', to: 'api/sample#retrieve'
+  post base_url + '/sample/create', to: 'api/sample#create'
+  post base_url + '/sample/set', to: 'api/sample#set_retrieve'
+  get base_url + '/sample/:id', to: 'api/sample#retrieve_by_id'
+  delete base_url + '/sample/:id', to: 'api/sample#delete'
+  post base_url + '/sample/:id', to: 'api/sample#modify'
+  get base_url + '/sample/search', to: 'api/sample#search'
 
-  post base_url + '/scores/record', to: 'api/scores#create'
+  post base_url + '/score/record', to: 'api/score#create'
 
   #get 'dashboard/experiments', to 'dashboard#experiments'
   
