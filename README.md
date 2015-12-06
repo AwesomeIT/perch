@@ -1,8 +1,8 @@
 Perch
 ===========
-A Rails-based management frontend for the Sinatra powered BirdFeed API.
+The BirdFeed API and management panel, powered by Rails 4+, authentication by Devise, and OAuth by Doorkeeper. 
 
-# Getting Started
+# Deploying
 Perch is designed to make it easy to deploy the BirdFeed API onto your infrastructure. Please treat this as a primer to an easy deployment and use best practices while setting up your own infrastructure. 
 
 ## Requirements 
