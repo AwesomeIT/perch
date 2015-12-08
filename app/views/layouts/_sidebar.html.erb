@@ -18,23 +18,20 @@
             <a href="/dashboard/participants/index">Participants</a>
         </li>
         <li>
-            <a href="#">Samples</a>
+            <a href="/dashboard/samples/index">Samples</a>
         </li>
         <li>
             <a href="/docs/">API Documentation</a>
         </li>
         <%- if current_user %>
             <% if current_user.is_admin? %>
-            <hr />
-            <li>
-                <a href="#">Services Administrator</a>
-            </li>
-            <li>
-                <a href="/sidekiq/">Background Jobs</a>
-            </li>
-            <li>
-                <a href="/oauth/applications/">Manage Applications (OAuth)</a>
-            </li>
+                <hr />
+                <li>
+                    <a href="/sidekiq/">Background Jobs</a>
+                </li>
+                <li>
+                    <a href="/oauth/applications/">Manage Applications (OAuth)</a>
+                </li>
             <% end %>
             <hr />
             <li>

@@ -1,0 +1,29 @@
+<% content_for :title, "Samples" %>
+
+<div class="container">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div class="row">
+            <h1 class="page-header">Manage Samples</h1>
+            <a href="/dashboard/samples/create" class="btn btn-success">Create</a>
+            <br/><br/>
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Filename</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <% @samples.each do |sample| %>
+                    <tr>
+                        <td> <%= sample.id %> </td>
+                        <td> <%= sample.filename %> </td>
+                        <td> <%= link_to("Details", "/dashboard/samples/#{sample.id}") %> </td>
+                    </tr>
+                <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

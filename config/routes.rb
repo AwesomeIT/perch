@@ -25,6 +25,11 @@ Rails.application.routes.draw do
   get '/dashboard/participants/:id', to: 'dashboard/participant#details'
   post '/dashboard/participants/:id/reset_pw', to: 'dashboard/participant#reset_pw'
 
+  # Manage samples
+  get '/dashboard/samples/index', to: 'dashboard/sample#index'
+  get '/dashboard/samples/create', to: 'dashboard/sample#create'
+  post '/dashboard/samples/create_sample', to: 'dashboard/sample#create_sample'
+
   #### API ROUTES ####
 
   post base_url + '/participant/register', to: 'api/participant#register'
