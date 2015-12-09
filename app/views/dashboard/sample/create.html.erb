@@ -1,17 +1,30 @@
+<div class="container">
 <div class="col-lg-8 col-lg-offset-2">
     <div class="page-header">
         <h1>Create a Sample</h1>
     </div>
     <table class="table table-striped table-bordered table-hover">
-    <%= form_for(:sample, :url => {:controller => "dashboard/sample", :action => "create_sample"}) do |f| %>
+        <thead>
         <tr>
-            <td>Filename</td>
-            <td><%=f.text_field :filename, class: 'form-control' %></td>
+            <th>Field</th>
+            <th>Data - All fields are required</th>
+        </tr>
+        </thead>
+    <%= form_for(:sample, :url => {:controller => "dashboard/sample", :action => "create_sample"}, :required => true) do |f| %>
+        <tr>
+            <td>Name</td>
+            <td><%=f.text_field :name, class: 'form-control' %></td>
         </tr>
         <tr>
-            <td>File Location</td>
-            <td><%=f.url_field :file_location, class: 'form-control' %></td>
+            <td>Tags</td>
+            <td><%=f.text_field :tags, class: 'form-control' %></td>
         </tr>
-    <% end %>
+        <tr>
+            <td>File</td>
+            <td><%=f.file_field :file %></td>
+        </tr>
     </table>
+    <%= f.submit "Save", class: "btn btn-primary btn-block" %>
+    <% end %>
+</div>
 </div>

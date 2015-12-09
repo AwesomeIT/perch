@@ -54,3 +54,6 @@ gem 'sinatra', '~> 1.4', '>= 1.4.6'
 
 # OAuth provider
 gem 'doorkeeper', '~> 3.0', '>= 3.0.1'
+
+# AWS Access
+gem 's3', '~> 0.3.23'

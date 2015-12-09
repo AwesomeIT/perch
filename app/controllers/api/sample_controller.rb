@@ -14,8 +14,8 @@ class Api::SampleController < ApplicationController
 
     # Create sample
     @new_sample = Sample.new(
-        :filename => params[:filename],
-        :data => params[:data]
+        :name => params[:filename],
+        :file => params[:data]
     )
 
     # Attempt to save sample
@@ -172,7 +172,7 @@ class Api::SampleController < ApplicationController
       end
 
       if params.has_key?(:tags)
-        @found_samples << Sample.where(not (tags & :tags).empty)
+        #@found_samples << Sample.where(not (tags & :tags).empty)
         render(status: 200, json: @found_samples)
       end
   end

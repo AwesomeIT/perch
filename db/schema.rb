@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151202002356) do
+ActiveRecord::Schema.define(version: 20151209023309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,13 +82,14 @@ ActiveRecord::Schema.define(version: 20151202002356) do
   end
 
   create_table "samples", force: :cascade do |t|
-    t.string   "filename"
+    t.string   "name"
     t.integer  "total_scores"
     t.decimal  "avg_score"
     t.decimal  "expected_score"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.string   "tags"
+    t.string   "file"
   end
 
   create_table "scores", force: :cascade do |t|

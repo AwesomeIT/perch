@@ -8,7 +8,7 @@ class Dashboard::SampleController < ApplicationController
   end
 
   def create_sample
-
+    Api::SampleController.create
   end
 
 end
