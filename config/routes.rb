@@ -32,6 +32,11 @@ Rails.application.routes.draw do
   get '/dashboard/samples/create', to: 'dashboard/sample#create'
   post '/dashboard/samples/create_sample', to: 'dashboard/sample#create_sample'
 
+  # Manage experiments
+  get '/dashboard/experiments/index', to: 'dashboard/experiment#index'
+  get '/dashboard/experiments/index/:page', to: 'dashboard/experiment#index'
+
+
 
   #### API ROUTES ####
 

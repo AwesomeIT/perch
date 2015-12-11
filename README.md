@@ -6,13 +6,8 @@ The BirdFeed API and management panel, powered by Rails 4+, authentication by De
 Perch is designed to make it easy to deploy the BirdFeed API onto your infrastructure. Please treat this as a primer to an easy deployment and use best practices while setting up your own infrastructure. 
 
 ## Requirements 
-- Ruby 2.2+
-- Bundler
-- Rails 4+
-- Sinatra
-- sidekiq
-- nodejs 
-- npm
+- Ruby 2+
+- Node.JS runtime (for docs)
 
 ## Setting up Perch
 It's actually ridiculously simple, just...
@@ -20,6 +15,7 @@ It's actually ridiculously simple, just...
 ```bash
 git clone https://github.com/birdfeed/perch
 cd perch
+vim config/database.yml # do your thing
 bundle install && rails s
 ```
 

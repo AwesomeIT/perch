@@ -7,7 +7,7 @@ class Dashboard::ParticipantController < ApplicationController
     begin
       @participant = Participant.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      flash[:error] = 'Participant URL is not valid / participant not found'
+      flash[:error] = 'Participant URL is not valid / participant not found.'
       redirect_to '/dashboard/participants/index'
     end
   end
