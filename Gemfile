@@ -57,3 +57,6 @@ gem 'doorkeeper', '~> 3.0', '>= 3.0.1'
 
 # AWS Access
 gem 's3', '~> 0.3.23'
+
+# Pagination assist
+gem 'will_paginate', '~> 3.0', '>= 3.0.7'

@@ -27,8 +27,11 @@ Rails.application.routes.draw do
 
   # Manage samples
   get '/dashboard/samples/index', to: 'dashboard/sample#index'
+  get '/dashboard/samples/index/:page', to: 'dashboard/sample#index'
+
   get '/dashboard/samples/create', to: 'dashboard/sample#create'
   post '/dashboard/samples/create_sample', to: 'dashboard/sample#create_sample'
+
 
   #### API ROUTES ####
 

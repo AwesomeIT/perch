@@ -3,6 +3,12 @@ require 'bcrypt'
 class Api::ParticipantController < ApplicationController
   skip_before_action :verify_authenticity_token
 
+  # Only registered client applications can create
+  # new participants
+  before_action do
+    doorkeeper_authorize! :administrator, :client
+  end
+
   def register
     # Validate request
     unless params.has_key?(:username) && params.has_key?(:password)

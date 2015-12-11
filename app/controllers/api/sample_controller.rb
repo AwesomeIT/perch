@@ -1,6 +1,18 @@
 class Api::SampleController < ApplicationController
   skip_before_action :verify_authenticity_token
 
+  # Only administrators can have volatile access
+  before_action only [:create, :delete, :modify] do
+    doorkeeper_authorize! :administrator
+  end
+
+  # Only authorized applications can retrieve
+  # sample resources
+
+  before_action only [:retrieve_by_id, :retrieve_set, :search] do
+    doorkeeper_authorize! :administrator, :client
+  end
+
   def create
     # Validate request
     unless params.has_key?(:filename) && params.has_key?(:data)

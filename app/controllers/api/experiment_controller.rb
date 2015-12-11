@@ -1,6 +1,14 @@
 class Api::ExperimentController < ApplicationController
   skip_before_action :verify_authenticity_token
 
+  before_action only [:create, :modify, :delete] do
+    doorkeeper_authorize! :administrator
+  end
+
+  before_action only [:retrieve] do
+    doorkeeper_authorize! :administrator, :client
+  end
+
   def create
     # Validate request
     unless params.has_key?(:name) \

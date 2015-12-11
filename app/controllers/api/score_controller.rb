@@ -1,6 +1,10 @@
 class Api::ScoreController < ApplicationController
   skip_before_action :verify_authenticity_token
 
+  before_action do
+    doorkeeper_authorize! :administrator, :client
+  end
+
   def create
     # Validate request
     unless params.has_key?(:participant_id) && params.has_key?(:sample_id) \
