@@ -1,6 +1,6 @@
 class Dashboard::SampleController < ApplicationController
   def index
-    @samples = Sample.last(25).reverse
+    @samples = Sample.paginate(:page => params[:page], :per_page => 15)
   end
 
   def create

@@ -1,6 +1,6 @@
 class Dashboard::ParticipantController < ApplicationController
   def index
-    @participants = Participant.last(25).reverse
+    @participants = Participant.paginate(:page => params[:page], :per_page => 15)
   end
 
   def details
