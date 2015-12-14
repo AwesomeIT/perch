@@ -7,8 +7,16 @@ class Dashboard::SampleController < ApplicationController
 
   end
 
-  def create_sample
-    Api::SampleController.create
+  def process_create
+    p sample_params
+    Sample.create(sample_params)
+    redirect_to '/dashboard/samples/index'
+  end
+
+  private
+
+  def sample_params
+    params.require(:sample).permit(:s3_file, :name, :tags)
   end
 
 end

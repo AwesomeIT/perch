@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   get '/dashboard/samples/index/:page', to: 'dashboard/sample#index'
 
   get '/dashboard/samples/create', to: 'dashboard/sample#create'
-  post '/dashboard/samples/create_sample', to: 'dashboard/sample#create_sample'
+  post '/dashboard/samples/process_create', to: 'dashboard/sample#process_create'
 
   # Manage experiments
   get '/dashboard/experiments/index', to: 'dashboard/experiment#index'

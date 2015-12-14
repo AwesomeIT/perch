@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151211013944) do
+ActiveRecord::Schema.define(version: 20151214002742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,10 +86,13 @@ ActiveRecord::Schema.define(version: 20151211013944) do
     t.integer  "total_scores"
     t.decimal  "avg_score"
     t.decimal  "expected_score"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.string   "tags"
-    t.string   "s3_url"
+    t.string   "s3_file_file_name"
+    t.string   "s3_file_content_type"
+    t.integer  "s3_file_file_size"
+    t.datetime "s3_file_updated_at"
   end
 
   create_table "scores", force: :cascade do |t|

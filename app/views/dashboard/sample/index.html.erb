@@ -10,7 +10,7 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Filename</th>
+                    <th>Name</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -18,7 +18,7 @@
                 <% @samples.each do |sample| %>
                     <tr>
                         <td> <%= sample.id %> </td>
-                        <td> <%= sample.filename %> </td>
+                        <td> <%= sample.name %> </td>
                         <td> <%= link_to("Details", "/dashboard/samples/#{sample.id}") %> </td>
                     </tr>
                 <% end %>

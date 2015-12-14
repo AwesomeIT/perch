@@ -56,7 +56,10 @@ gem 'sinatra', '~> 1.4', '>= 1.4.6'
 gem 'doorkeeper', '~> 3.0', '>= 3.0.1'
 
 # AWS Access
-gem 's3', '~> 0.3.23'
+gem 'aws-sdk', '< 2.0.0' # If using paperclip `master` (upcoming v5.0)
+
+# Manage file uploads
+gem 'paperclip', '~> 4.3', '>= 4.3.2'
 
 # Pagination assist
 gem 'will_paginate', '~> 3.0', '>= 3.0.7'

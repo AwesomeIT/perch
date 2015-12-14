@@ -10,7 +10,7 @@
             <th>Data - All fields are required</th>
         </tr>
         </thead>
-    <%= form_for(:sample, :url => {:controller => "dashboard/sample", :action => "create_sample"}, :required => true) do |f| %>
+    <%= form_for(:sample, :url => {:controller => "dashboard/sample", :action => "process_create"}, :required => true, html: { multipart: true }) do |f| %>
         <tr>
             <td>Name</td>
             <td><%=f.text_field :name, class: 'form-control' %></td>
@@ -21,7 +21,7 @@
         </tr>
         <tr>
             <td>File</td>
-            <td><%=f.file_field :file %></td>
+            <td><%= f.file_field :s3_file %></td>
         </tr>
     </table>
     <%= f.submit "Save", class: "btn btn-primary btn-block" %>
