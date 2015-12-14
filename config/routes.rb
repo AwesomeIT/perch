@@ -44,7 +44,11 @@ Rails.application.routes.draw do
   post '/dashboard/experiments/:id/edit', to: 'dashboard/experiment#edit'
   post '/dashboard/experiments/:id/sample_edit', to: 'dashboard/experiment#sample_edit'
 
+  # Data export
+  get '/dashboard/data/index', to: 'dashboard/data#index'
+  post '/dashboard/data/csv', to: 'dashboard/data#csv'
 
+  
   #### API ROUTES ####
 
   post base_url + '/participant/register', to: 'api/participant#register'
