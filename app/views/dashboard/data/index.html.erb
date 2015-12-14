@@ -1,0 +1,157 @@
+<% content_for :title, "Data Export" %>
+
+<div class="container">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div class="row">
+            <h1 class="page-header">Export Data</h1>
+            <p>All data is exported as a CSV file with the timestamp of creation in the file name. More support for different data platforms will be added in the near future.</p>
+        </div>
+        <div class="row">
+            <h2 class="page-header">Scores</h2>
+            <div class="col-lg-6">
+                <h4>By Sample ID</h4>
+                <%= form_for(:csv_score_by_sample_id, :url => {:controller => "dashboard/data", :action => "csv"}) do |f| %>
+                <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> 
+                            <%= f.number_field :sample_id, in: Sample.first.id..Sample.last.id, :required => true, class: 'form_control' %> 
+                        </td>
+                        <td> 
+                            <%= f.submit "Download", class: "btn btn-primary btn-block" %> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <% end %>
+            </div>
+            <div class="col-lg-6">
+                <h4>By Experiment ID</h4>
+                <%= form_for(:csv_score_by_experiment_id, :url => {:controller => "dashboard/data", :action => "csv"}) do |f| %>
+                <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> 
+                            <%= f.number_field :experiment_id, in: Experiment.first.id..Experiment.last.id, :required => true, class: 'form_control' %> 
+                        </td>
+                        <td> 
+                            <%= f.submit "Download", class: "btn btn-primary btn-block" %> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <% end %>
+            </div>
+        </div>
+        <div class="row">
+            <h2 class="page-header">Experiments</h2>
+            <div class="col-lg-6">
+                <h4>By Participant ID</h4>
+                <%= form_for(:csv_experiment_by_participant_id, :url => {:controller => "dashboard/data", :action => "csv"}) do |f| %>
+                <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> 
+                            <%= f.number_field :participant_id, in: Participant.first.id..Participant.last.id, :required => true, class: 'form_control' %> 
+                        </td>
+                        <td> 
+                            <%= f.submit "Download", class: "btn btn-primary btn-block" %> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <% end %>
+            </div>
+            <div class="col-lg-6">
+                <h4>By Sample ID</h4>
+                <%= form_for(:csv_experiment_by_sample_id, :url => {:controller => "dashboard/data", :action => "csv"}) do |f| %>
+                <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> 
+                            <%= f.number_field :participant_id, in: Sample.first.id..Sample.last.id, :required => true, class: 'form_control' %> 
+                        </td>
+                        <td> 
+                            <%= f.submit "Download", class: "btn btn-primary btn-block" %> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <% end %>
+            </div>
+        </div>
+        <div class="row">
+            <h2 class="page-header">Participants</h2>
+            <div class="col-lg-6">
+                <h4>By Experiment ID</h4>
+                <%= form_for(:csv_participant_by_experiment_id, :url => {:controller => "dashboard/data", :action => "csv"}) do |f| %>
+                <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> 
+                            <%= f.number_field :experiment_id, in: Experiment.first.id..Experiment.last.id, :required => true, class: 'form_control' %> 
+                        </td>
+                        <td> 
+                            <%= f.submit "Download", class: "btn btn-primary btn-block" %> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <% end %>
+            </div>
+            <div class="col-lg-6">
+                <h4>By Sample ID</h4>
+                <%= form_for(:csv_participant_by_sample_id, :url => {:controller => "dashboard/data", :action => "csv"}) do |f| %>
+                <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> 
+                            <%= f.number_field :sample_id, in: Sample.first.id..Sample.last.id, :required => true, class: 'form_control' %> 
+                        </td>
+                        <td> 
+                            <%= f.submit "Download", class: "btn btn-primary btn-block" %> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <% end %>
+            </div>
+        </div>
+    </div>
+</div>

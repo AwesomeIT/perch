@@ -38,7 +38,9 @@ Rails.application.routes.draw do
   get '/dashboard/experiments/index', to: 'dashboard/experiment#index'
   get '/dashboard/experiments/index/:page', to: 'dashboard/experiment#index'
 
-
+  # Data export
+  get '/dashboard/data/index', to: 'dashboard/data#index'
+  post '/dashboard/data/csv', to: 'dashboard/data#csv'
 
   #### API ROUTES ####
 
