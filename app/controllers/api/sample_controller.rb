@@ -15,7 +15,7 @@ class Api::SampleController < ApplicationController
 
   def create
     # Validate request
-    unless params.has_key?(:filename) && params.has_key?(:data)
+    unless params.has_key?(:s3_url) && params.has_key?(:name) && params.has_key?(:tags)
       @error = Error.create(
           :message => 'No data was provided. Did you set your Content-Type header?',
           :path => request.env['PATH_INFO'],
@@ -26,8 +26,9 @@ class Api::SampleController < ApplicationController
 
     # Create sample
     @new_sample = Sample.new(
-        :name => params[:filename],
-        :file => params[:data]
+        :name => params[:name],
+        :s3_url => params[:s3_url],
+        :tags => params[:tags]
     )
 
     # Attempt to save sample
@@ -35,8 +36,8 @@ class Api::SampleController < ApplicationController
       @new_sample.save!
     rescue ActiveRecord::RecordInvalid
       @error = Error.create(
-          :message => 'Data is improperly formatted. Ensure that filename is a string
-            and data is a raw uncompressed audio sample.',
+          :message => 'Data is improperly formatted. Ensure that name is a string,
+            tags is an array, and s3_url is a string.',
           :path => request.env['PATH_INFO'],
           :request => params.to_json
       )
@@ -140,7 +141,7 @@ class Api::SampleController < ApplicationController
     end
 
     # Edit Sample
-    @found_sample.filename = params[:filename] if params.key?(:filename)
+    @found_sample.s3_url = params[:s3_url] if params.key?(:s3_url)
     @found_sample.expected_score = params[:expected_score] if params.key?(:expected_score)
     @found_sample.tags = params[:tags] if params.key?(:tags)
 
@@ -149,7 +150,7 @@ class Api::SampleController < ApplicationController
       @found_sample.save!
     rescue ActiveRecord::RecordInvalid
       @error = Error.create(
-          :message => 'Data is improperly formatted. Ensure that filename is a string,
+          :message => 'Data is improperly formatted. Ensure that s3_url is a string,
           expected score is an int and tags is an array.',
           :path => request.env['PATH_INFO'],
           :request => params.to_json
@@ -163,7 +164,7 @@ class Api::SampleController < ApplicationController
 
   def search
       # Something must be passed in
-      unless params.has_key?(:filename) or params.has_key?(:date) or params.has_key?(:tags)
+      unless params.has_key?(:s3_url) or params.has_key?(:date) or params.has_key?(:tags)
         @error = Error.create(
             :message => 'No search parameter was provided.',
             :path => request.env['PATH_INFO'],
@@ -173,8 +174,8 @@ class Api::SampleController < ApplicationController
       end
 
       @found_samples = []
-      if params.has_key?(:filename)
-        @sample = Sample.find(params[:filename])
+      if params.has_key?(:s3_url)
+        @sample = Sample.find(params[:s3_url])
         render(status: 200, json: @sample) and return
       end
 
@@ -188,5 +189,4 @@ class Api::SampleController < ApplicationController
         render(status: 200, json: @found_samples)
       end
   end
-
 end
