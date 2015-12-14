@@ -5,12 +5,16 @@
 
 <!-- Stylesheets -->
 <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'c3', media: 'all', 'data-turbolinks-track' => true %>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
 <!-- JS -->
 <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
+<!-- Data visualization libraries -->
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<%= javascript_include_tag 'c3' %>
 <%= csrf_meta_tags %>
 </head>
 <body>

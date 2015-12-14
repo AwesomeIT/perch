@@ -63,3 +63,6 @@ gem 'paperclip', '~> 4.3', '>= 4.3.2'
 
 # Pagination assist
 gem 'will_paginate', '~> 3.0', '>= 3.0.7'
+
+# Data visualization
+gem 'd3js-rails', '~> 3.1', '>= 3.1.6'

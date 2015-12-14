@@ -1,4 +1,6 @@
 <% content_for :title, "Sample (#{@sample.name})" %>
+<%= javascript_include_tag 'data_visualization/sample', 'data-turbolinks-track' => true %>
+
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2">
@@ -42,6 +44,12 @@
                     </tr>
                 </tbody>
             </table>
+
+          <div id="chart-score">
+            <div id="hiddendata-score">
+              <%= @chart_score_data %>
+            </div>
+          </div>
         </div>
     </div>
 </div>

@@ -1,4 +1,6 @@
 class Sample < ActiveRecord::Base
+  has_many :scores
+
   validates :name, presence: true
   validates :tags, presence: true
 

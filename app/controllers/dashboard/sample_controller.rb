@@ -19,6 +19,17 @@ class Dashboard::SampleController < ApplicationController
   def details
     begin
       @sample = Sample.find(params[:id])
+
+      @chart_score_data = ''
+
+      @sample.scores.each do |score|
+        if @chart_score_data.blank?
+          @chart_score_data << score.rating.to_s
+        else
+          @chart_score_data << ',' << score.rating.to_s
+        end
+      end
+
     rescue ActiveRecord::RecordNotFound
       flash[:error] = 'Participant URL is not valid / participant not found.'
       redirect_to '/dashboard/samples/index'
