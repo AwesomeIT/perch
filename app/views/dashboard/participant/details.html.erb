@@ -1,34 +1,49 @@
 <% content_for :title, "Participants (#{@participant.username})" %>
+<%= javascript_include_tag 'dashboard/data_visualization/participant', 'data-no-turbolink' => true %>
+
 <div class="container">
   <div class="row">
-  <div class="col-lg-8 col-lg-offset-2">
-    <%= link_to 'Back', :back, class: 'btn btn-default' %>
-    <h3 class="page-header">User Details</h3>
-    <table class="table table-striped table-bordered table-hover">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Username</th>
-          <th>Reset Password?</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= form_for(:participant, :url => {:controller => "dashboard/participant", :action => "reset_pw"}) do |f| %>
+    <div class="col-lg-8 col-lg-offset-2">
+      <%= link_to 'Back', :back, class: 'btn btn-default' %>
+      <h3 class="page-header">Participant Details</h3>
+      <table class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Reset Password?</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= form_for(:participant, :url => {:controller => "dashboard/participant", :action => "reset_pw"}) do |f| %>
           <tr>
             <td> <%= @participant.id %> </td>
             <td> <%= @participant.username %> </td>
             <td> <%= f.password_field :password, class: 'form-control' %> </td>
             <td> <%= f.submit "Save", class: "btn btn-primary btn-block" %> </td>
           </tr>
-        <% end %>
+          <% end %>
         </tbody>
       </table>
     </div>
   </div>
   <div class="row">
-  <div class="col-lg-8 col-lg-offset-2">
-    <h3 class="page-header">Experiments Participated In</h3>
+    <div class="col-lg-8 col-lg-offset-2">
+      <h3 class="page-header">Scores</h3>
+      <div id="chart-score-participant">
+        <div id="hiddendata-score-rating">
+          <%= @chart_score_rating %>
+        </div>
+        <div id="hiddendata-score-id">
+          <%= @chart_score_id %>
+        </div>
+      </div>
+    </div>
   </div>
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+      <h3 class="page-header">Experiments Participated In</h3>
+    </div>
   </div>
-  </div>
+</div>

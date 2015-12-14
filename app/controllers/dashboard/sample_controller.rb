@@ -29,7 +29,6 @@ class Dashboard::SampleController < ApplicationController
           @chart_score_data << ',' << score.rating.to_s
         end
       end
-
     rescue ActiveRecord::RecordNotFound
       flash[:error] = 'Participant URL is not valid / participant not found.'
       redirect_to '/dashboard/samples/index'

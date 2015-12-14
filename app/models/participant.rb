@@ -2,6 +2,8 @@ class Participant < ActiveRecord::Base
   validates :username, :uniqueness => true
 
   has_many :experiments, through: :scores
+  has_many :participants, through: :scores
+  has_many :scores
 
   # For data export
   def self.as_csv

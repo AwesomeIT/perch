@@ -6,6 +6,19 @@ class Dashboard::ParticipantController < ApplicationController
   def details
     begin
       @participant = Participant.find(params[:id])
+
+      @chart_score_rating = ''
+      @chart_score_id = ''
+
+      @participant.scores.each do |score|
+        if @chart_score_rating.blank?
+          @chart_score_rating << score.rating.to_s
+          @chart_score_id << score.id.to_s
+        else
+          @chart_score_rating << ',' << score.rating.to_s
+          @chart_score_id << ',' << score.id.to_s
+        end
+      end
     rescue ActiveRecord::RecordNotFound
       flash[:error] = 'Participant URL is not valid / participant not found.'
       redirect_to '/dashboard/participants/index'
