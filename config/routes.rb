@@ -31,6 +31,8 @@ Rails.application.routes.draw do
 
   get '/dashboard/samples/create', to: 'dashboard/sample#create'
   post '/dashboard/samples/process_create', to: 'dashboard/sample#process_create'
+  get '/dashboard/samples/:id', to: 'dashboard/sample#details'
+  post '/dashboard/samples/:id/edit', to: 'dashboard/sample#edit'
 
   # Manage experiments
   get '/dashboard/experiments/index', to: 'dashboard/experiment#index'

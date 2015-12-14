@@ -1,0 +1,47 @@
+<% content_for :title, "Sample (#{@sample.name})" %>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <%= link_to 'Back', :back, class: 'btn btn-default' %>
+            <h3 class="page-header">Sample Details</h3>
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Expected Score</th>
+                    <th>Tags</th>
+                    <th>Save?</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <%= form_for(:sample, :url => {:controller => "dashboard/sample", :action => "edit"}) do |f| %>
+                        <tr>
+                            <td> <%= @sample.id %> </td>
+                            <td> <%= f.text_field :name, value: @sample.name, class: 'form_control' %> </td>
+                            <td> <%= f.number_field :expected_score, in: 0..10, :value => @sample.expected_score, class: 'form_control' %> </td>
+                            <td> <%= f.text_field :tags, :value => @sample.tags, class: 'form_control' %> </td>
+                            <td> <%= f.submit "Save", class: "btn btn-primary btn-block" %> </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Total Scores</th>
+                    <th>Average Score</th>
+                    <th>Created</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> <%= @sample.total_scores %> </td>
+                        <td> <%= @sample.avg_score %> </td>
+                        <td> <%= @sample.created_at %> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
