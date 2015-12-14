@@ -28,7 +28,8 @@ class Api::SampleController < ApplicationController
     @new_sample = Sample.new(
         :name => params[:name],
         :s3_url => params[:s3_url],
-        :tags => params[:tags]
+        :tags => params[:tags],
+        :expected_score => params[:expected_score]
     )
 
     # Attempt to save sample
