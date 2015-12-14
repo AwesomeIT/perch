@@ -31,7 +31,7 @@ class Dashboard::SampleController < ApplicationController
       end
 
     rescue ActiveRecord::RecordNotFound
-      flash[:error] = 'Participant URL is not valid / participant not found.'
+      flash[:error] = 'Sample URL is not valid / sample not found.'
       redirect_to '/dashboard/samples/index'
     end
   end
@@ -56,7 +56,7 @@ class Dashboard::SampleController < ApplicationController
   private
 
   def sample_params
-    params.require(:sample).permit(:s3_file, :name, :tags, :expected_score)
+    params.require(:sample).permit(:audio, :name, :tags, :expected_score)
   end
 
 end

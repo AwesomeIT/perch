@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div class="page-header">
+            <h1>Create an Experiment</h1>
+        </div>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>Field</th>
+                <th>Data</th>
+            </tr>
+            </thead>
+            <%= form_for(:experiment, :url => {:controller => "dashboard/experiment", :action => "process_create"}, :required => true, html: { multipart: true }) do |f| %>
+                <tr>
+                    <td>Name</td>
+                    <td><%=f.text_field :name, class: 'form-control' %></td>
+                </tr>
+                <tr>
+                    <td>Tags</td>
+                    <td><%=f.text_field :tags, class: 'form-control' %></td>
+                </tr>
+                <tr>
+                    <td>Expiry Date (Optional)</td>
+                    <td><%=f.date_field :expiry_date, class: 'form-control' %></td>
+                </tr>
+                </table>
+                <%= f.submit "Save", class: "btn btn-primary btn-block" %>
+            <% end %>
+            </div>
+</div>

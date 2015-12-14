@@ -12,6 +12,17 @@ html { height: 100%;}
     margin-left: 200px;
 }
 
+.checkbox-list input[type="checkbox"] {
+    display: inline-block;
+    width: 10%;
+}
+
+.checkbox-list input[type="checkbox"] + label {
+    display: inline-block;
+    margin-left: 10%;
+    width: 80%;
+}
+
 /*-------------------------------*/
 /*           Wrappers            */
 /*-------------------------------*/

@@ -38,6 +38,11 @@ Rails.application.routes.draw do
   get '/dashboard/experiments/index', to: 'dashboard/experiment#index'
   get '/dashboard/experiments/index/:page', to: 'dashboard/experiment#index'
 
+  get '/dashboard/experiments/create', to: 'dashboard/experiment#create'
+  post '/dashboard/experiments/process_create', to: 'dashboard/experiment#process_create'
+  get '/dashboard/experiments/:id', to: 'dashboard/experiment#details'
+  post '/dashboard/experiments/:id/edit', to: 'dashboard/experiment#edit'
+  post '/dashboard/experiments/:id/sample_edit', to: 'dashboard/experiment#sample_edit'
 
 
   #### API ROUTES ####
