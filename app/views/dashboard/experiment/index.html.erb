@@ -1,0 +1,29 @@
+<% content_for :title, "Experiments" %>
+
+<div class="container">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div class="row">
+            <h1 class="page-header">Manage Experiments</h1>
+            <a href="/dashboard/experiments/create" class="btn btn-success">Create</a>
+            <br/><br/>
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <% @experiments.each do |experiment| %>
+                    <tr>
+                        <td> <%= experiment.id %> </td>
+                        <td> <%= experiment.name %> </td>
+                        <td> <%= link_to("Details", "/dashboard/experiments/#{experiment.id}") %> </td>
+                    </tr>
+                <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

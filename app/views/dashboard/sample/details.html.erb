@@ -21,7 +21,7 @@
                 <tbody>
                         <tr>
                             <td> <%= @sample.id %> </td>
-                            <td> <%= f.text_field :name, value: @sample.name, class: 'form_control' %> </td>
+                            <td> <%= f.text_field :name, :value => @sample.name, class: 'form_control' %> </td>
                             <td> <%= f.number_field :expected_score, in: 0..10, :value => @sample.expected_score, class: 'form_control' %> </td>
                             <td> <%= f.text_field :tags, :value => @sample.tags, class: 'form_control' %> </td>
                             <td> <%= f.submit "Save", class: "btn btn-primary btn-block" %> </td>

@@ -17,6 +17,10 @@ class Sample < ActiveRecord::Base
   # Accept any audio MIME type
   validates_attachment_content_type :audio, content_type: "audio/*"
 
+  def sample_display
+    "ID: #{id} Name: #{name}"
+  end
+    
   # For data export
   def self.as_csv
     CSV.generate do |csv|
@@ -26,5 +30,4 @@ class Sample < ActiveRecord::Base
       end
     end
   end
-
 end
