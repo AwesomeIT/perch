@@ -4,12 +4,12 @@
 <title><%= "Perch: #{yield(:title)}" %></title>
 
 <!-- Stylesheets -->
-<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= stylesheet_link_tag    'c3', media: 'all', 'data-turbolinks-track' => true %>
+<%= stylesheet_link_tag    'application', media: 'all', 'data-no-turbolink' => true %>
+<%= stylesheet_link_tag    'c3', media: 'all', 'data-no-turbolink' => true %>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
 <!-- JS -->
-<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'application', 'data-no-turbolink' => true %>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 <!-- Data visualization libraries -->
