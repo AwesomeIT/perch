@@ -13,8 +13,9 @@ class Dashboard::SampleController < ApplicationController
     unless check_params[:expected_score]
       check_params[:expected_score] = -1
     end
-    
-    Sample.create(check_params)
+
+    Sample.new(check_params)
+
     redirect_to '/dashboard/samples/index'
   end
 
