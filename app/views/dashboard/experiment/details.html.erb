@@ -33,22 +33,35 @@
             <h3 class="page-header">Samples</h3>
 
             <h4 class="page-header">Current Samples</h4>
-            <table class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th> ID </th>
-                        <th> Name </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% @experiment.samples.each do |p| %>
-                    <tr>
-                        <td><%= p.id %></td>
-                        <td><%= p.name %></td>
-                    </tr>
+            <%= form_for(:experiment_samples, :url => {:controller => "dashboard/experiment", :action => "sample_delete"}) do |f| %>
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th> ID </th>
+                            <th> Name </th>
+                            <th class="col-md-2"> Remove? </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <%= f.collection_check_boxes(:id, Sample.where(:id => @experiment.samples), :id, :sample_display, checked: []) do |b|%>
+                        <tr>
+                            <%= b.label(class: "check_box") do %>
+                                <td>
+                                    <%= b.object.id %>
+                                </td>
+                                <td>
+                                    <%= b.object.name.strip %>
+                                </td>
+                                <td>
+                                    <%= b.check_box(class: "check_box") %>
+                                </td>
+                            <% end %>
+                        </tr>
                     <% end %>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+                <%= f.submit "Remove Selected", class: "btn btn-danger" %>
+            <% end %>
 
             <h4 class="page-header">Update Samples</h4>
             <%= form_for(:experiment_samples, :url => {:controller => "dashboard/experiment", :action => "sample_edit"}) do |f| %>

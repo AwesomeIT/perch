@@ -58,6 +58,25 @@ class Dashboard::ExperimentController < ApplicationController
     end
   end
 
+  def sample_delete
+    begin
+      @experiment = Experiment.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = 'Experiment URL is not valid / experiment not found.'
+      redirect_to '/dashboard/experiment/index'
+    ensure
+      params[:experiment_samples][:id].each do |sample_id|
+        unless sample_id.blank?
+          @experiment.samples.delete(Sample.find(sample_id))
+        end
+      end
+      @experiment.save!
+
+      flash[:notice] = "Experiment successfully changed!"
+      redirect_to "/dashboard/experiments/#{@experiment.id}"
+    end
+  end
+
   private
 
   def experiment_params

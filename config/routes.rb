@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   get '/dashboard/experiments/:id', to: 'dashboard/experiment#details'
   post '/dashboard/experiments/:id/edit', to: 'dashboard/experiment#edit'
   post '/dashboard/experiments/:id/sample_edit', to: 'dashboard/experiment#sample_edit'
+  post '/dashboard/experiments/:id/sample_delete', to: 'dashboard/experiment#sample_delete'
 
   # Data export
   get '/dashboard/data/index', to: 'dashboard/data#index'
