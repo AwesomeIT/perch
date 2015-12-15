@@ -4,6 +4,7 @@ class Sample < ActiveRecord::Base
   has_many :participants, through: :scores
 
   validates :name, presence: true
+
   default_scope { order('id DESC') }
 
   has_attached_file :audio, :storage => :s3, :s3_credentials => {
@@ -36,6 +37,21 @@ class Sample < ActiveRecord::Base
       all.each do |item|
         csv << item.attributes.values_at(*column_names)
       end
+    end
+  end
+
+  private
+
+  # Recalculate averages if scores are present
+  def recalculate_average_and_total_scores
+    if self.scores
+      avg = 0
+      self.scores.each do |score|
+        avg += score.rating
+      end
+
+      self.update_attribute(:avg_score, avg / self.scores.length)
+      self.update_attribute(:total_scores, self.scores.length)
     end
   end
 end
