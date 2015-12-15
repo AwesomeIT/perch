@@ -16,16 +16,6 @@ class Dashboard::ExperimentController < ApplicationController
     begin
       @experiment = Experiment.find(params[:id])
 
-      @chart_score_data = ''
-
-      @experiment.scores.each do |score|
-        if @chart_score_data.blank?
-          @chart_score_data << score.rating.to_s
-        else
-          @chart_score_data << ',' << score.rating.to_s
-        end
-      end
-
     rescue ActiveRecord::RecordNotFound
       flash[:error] = 'Experiment URL is not valid / experiment not found.'
       redirect_to '/dashboard/experiments/index'

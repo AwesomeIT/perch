@@ -1,15 +1,15 @@
 $(document).ready ->
   # Sample scores visualization
-  if $('#hiddendata-score').length
-    scoreData = [ 'Sample Rating' ].concat $('#hiddendata-score').html().split(',')
-    expectedData = Array.apply(null, Array(scoreData.length - 1)).map ->
-      $('#sample_expected_score').val()
-
-    expectedData = ['Expected Rating'].concat(expectedData)
+  if $('#hiddendata-rating').length
+    ratingData = [ 'Sample Rating' ].concat $('#hiddendata-rating').html().split(',')
+    xData = ['x'].concat $('#hiddendata-id').html().split(',')
 
     chart = c3.generate(
-      bindto: '#chart-score',
-      data: columns: [scoreData, expectedData]
+      bindto: '#chart-score'
+      data: 
+        x: 'x'
+        columns: [ratingData, xData]
+        type: 'scatter'
       axis:
         x:
           label:
