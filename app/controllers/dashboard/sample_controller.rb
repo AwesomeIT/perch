@@ -8,7 +8,12 @@ class Dashboard::SampleController < ApplicationController
   end
 
   def process_create
-    Sample.create(sample_params)
+    check_params = sample_params
+    unless check_params[:expected_score]
+      check_params[:expected_score] = -1
+    end
+    Sample.create(check_params)
+
     redirect_to '/dashboard/samples/index'
   end
 
@@ -16,13 +21,16 @@ class Dashboard::SampleController < ApplicationController
     begin
       @sample = Sample.find(params[:id])
 
-      @chart_score_data = ''
+      @chart_score_rating = ''
+      @chart_score_id = ''
 
       @sample.scores.each do |score|
-        if @chart_score_data.blank?
-          @chart_score_data << score.rating.to_s
+        if @chart_score_rating.blank?
+          @chart_score_rating << score.rating.to_s
+          @chart_score_id << score.id.to_s
         else
-          @chart_score_data << ',' << score.rating.to_s
+          @chart_score_rating << ',' << score.rating.to_s
+          @chart_score_id << ',' << score.id.to_s
         end
       end
     rescue ActiveRecord::RecordNotFound
