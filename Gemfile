@@ -66,3 +66,6 @@ gem 'will_paginate', '~> 3.0', '>= 3.0.7'
 
 # Data visualization
 gem 'd3js-rails', '~> 3.1', '>= 3.1.6'
+
+# Help manage fields with tags
+gem 'acts-as-taggable-on', '~> 3.4'

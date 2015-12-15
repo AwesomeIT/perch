@@ -3,6 +3,8 @@ class Sample < ActiveRecord::Base
   has_and_belongs_to_many :experiments, join_table: 'experiments_samples', :uniq => true
   has_many :participants, through: :scores
 
+  acts_as_taggable_on :tags
+
   validates :name, presence: true
   validates :tags, presence: true
 

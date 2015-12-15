@@ -3,6 +3,8 @@ class Experiment < ActiveRecord::Base
   has_many :participants, through: :scores
   has_and_belongs_to_many :samples, join_table: 'experiments_samples', :uniq => true
 
+  acts_as_taggable_on :tags
+
   # For data export
   def self.as_csv
     CSV.generate do |csv|
