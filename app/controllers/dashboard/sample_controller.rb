@@ -8,11 +8,7 @@ class Dashboard::SampleController < ApplicationController
   end
 
   def process_create
-    check_params = sample_params
-    unless check_params[:expected_score]
-      check_params[:expected_score] = -1
-    end
-    Sample.create(check_params)
+    Sample.create(sample_params)
     redirect_to '/dashboard/samples/index'
   end
 
@@ -39,7 +35,7 @@ class Dashboard::SampleController < ApplicationController
     begin
       @sample = Sample.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      flash[:error] = 'Participant URL is not valid / participant not found.'
+      flash[:error] = 'Sample URL is not valid / sample not found.'
       redirect_to '/dashboard/samples/index'
     ensure
       @sample.name = params[:sample][:name]

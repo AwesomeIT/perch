@@ -15,7 +15,6 @@
                         <th>Name</th>
                         <th>Tags</th>
                         <th>Expiry Date</th>
-                        <th>Samples</th>
                         <th>Save?</th>
                     </tr>
                     </thead>
@@ -25,15 +24,33 @@
                         <td> <%= f.text_field :name, :value => @experiment.name, class: 'form_control' %> </td>
                         <td> <%= f.text_field :tags, :value => @experiment.tags, class: 'form_control' %> </td>
                         <td> <%= f.date_field :expiry_date, :value => @experiment.expiry_date, class: 'form_control' %> </td>
-                        <td> <%= @experiment.samples %> </td>
                         <td> <%= f.submit "Save", class: "btn btn-primary btn-block" %> </td>
                     </tr>
                     </tbody>
                 </table>
             <% end %>
 
-            <h3 class="page-header">Update Samples</h3>
+            <h3 class="page-header">Samples</h3>
 
+            <h4 class="page-header">Current Samples</h4>
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th> ID </th>
+                        <th> Name </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <% @experiment.samples.each do |p| %>
+                            <td><%= p.id %></td>
+                            <td><%= p.name %></td>
+                        <% end %>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4 class="page-header">Update Samples</h4>
             <%= form_for(:experiment, :url => {:controller => "dashboard/experiment", :action => "sample_edit"}) do |f| %>
             <table class="table table-striped table-bordered table-hover">
                 <thead>
