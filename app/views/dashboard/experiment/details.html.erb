@@ -21,9 +21,9 @@
                     <tbody>
                     <tr>
                         <td> <%= @experiment.id %> </td>
-                        <td> <%= f.text_field :name, :value => @experiment.name, class: 'form_control' %> </td>
-                        <td> <%= f.text_field :tags, :value => @experiment.tags, class: 'form_control' %> </td>
-                        <td> <%= f.date_field :expiry_date, :value => @experiment.expiry_date, class: 'form_control' %> </td>
+                        <td> <%= f.text_field :name, :value => @experiment.name, class: 'form-control' %> </td>
+                        <td> <%= f.text_field :tags, :value => @experiment.tags, class: 'form-control' %> </td>
+                        <td> <%= f.date_field :expiry_date, :value => @experiment.expiry_date, class: 'form-control' %> </td>
                         <td> <%= f.submit "Save", class: "btn btn-primary btn-block" %> </td>
                     </tr>
                     </tbody>
