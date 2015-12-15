@@ -34,18 +34,37 @@ class Dashboard::ExperimentController < ApplicationController
       @experiment.expiry_date = params[:experiment][:expiry_date]
       @experiment.save!
 
-      flash[:notice] = "Sample successfully changed!"
+      flash[:notice] = "Experiment successfully changed!"
       redirect_to "/dashboard/experiments/#{@experiment.id}"
     end
   end
 
   def sample_edit
+    begin
+      @experiment = Experiment.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = 'Experiment URL is not valid / experiment not found.'
+      redirect_to '/dashboard/experiment/index'
+    ensure
+    params[:experiment_samples][:id].each do |sample_id|
+      unless params[:sample_id].blank?
+        @experiment.samples << Sample.find(sample_id)
+      end
+    end
+    @experiment.save!
 
+      flash[:notice] = "Experiment successfully changed!"
+      redirect_to "/dashboard/experiments/#{@experiment.id}"
+    end
   end
 
   private
 
   def experiment_params
     params.require(:experiment).permit(:name, :tags, :expiry_date)
+  end
+
+  def experiment_sample_params
+    params.require(:experiment_samples).permit(:id)
   end
 end
