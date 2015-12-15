@@ -93,7 +93,7 @@
                 <tbody>
                     <tr>
                         <td> 
-                            <%= f.number_field :participant_id, in: Sample.first.id..Sample.last.id, :required => true, class: 'form_control' %> 
+                            <%= f.number_field :sample_id, in: Sample.first.id..Sample.last.id, :required => true, class: 'form_control' %>
                         </td>
                         <td> 
                             <%= f.submit "Download", class: "btn btn-primary btn-block" %> 

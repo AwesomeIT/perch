@@ -1,8 +1,7 @@
 class Experiment < ActiveRecord::Base
   has_many :scores
-
   has_many :participants, through: :scores
-  has_and_belongs_to_many :samples, join_table: 'experiments_samples'
+  has_and_belongs_to_many :samples, join_table: 'experiments_samples', :uniq => true
 
   # For data export
   def self.as_csv

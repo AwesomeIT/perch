@@ -1,6 +1,6 @@
 class Sample < ActiveRecord::Base
   has_many :scores
-  has_and_belongs_to_many :experiments, join_table: 'experiments_samples'
+  has_and_belongs_to_many :experiments, join_table: 'experiments_samples', :uniq => true
   has_many :participants, through: :scores
 
   validates :name, presence: true
