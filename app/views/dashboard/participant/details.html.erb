@@ -49,6 +49,7 @@
             <tr>
                 <th> ID </th>
                 <th> Name </th>
+                <th> </th>
             </tr>
             </thead>
             <tbody>
@@ -56,6 +57,7 @@
                     <tr>
                         <td> <%= e.id %> </td>
                         <td> <%= e.name %> </td>
+                        <td> <%= link_to("Details", "/dashboard/experiments/#{e.id}") %> </td>
                     </tr>
                 <% end %>
             </tbody>
