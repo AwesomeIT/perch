@@ -47,7 +47,7 @@ class Dashboard::ExperimentController < ApplicationController
       redirect_to '/dashboard/experiment/index'
     ensure
     params[:experiment_samples][:id].each do |sample_id|
-      unless params[:sample_id].blank?
+      unless sample_id.blank?
         @experiment.samples << Sample.find(sample_id)
       end
     end
