@@ -2,6 +2,17 @@ require 'csv'
 
 class Dashboard::DataController < ApplicationController
   def index
+    if !Participant.first \
+      or !Experiment.first \
+      or !Sample.first \
+      or !Score.first \
+
+      flash[:error] = 'You do not have a sufficient amount of data to visit this section. ' \
+      'Please ensure that you have at least one participant, experiment, sample, and score recorded ' \
+      'before proceeding!'
+
+      redirect_to '/'
+    end
   end
 
   def csv
