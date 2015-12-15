@@ -2,14 +2,14 @@ class Api::SampleController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   # Only administrators can have volatile access
-  before_action only [:create, :delete, :modify] do
+  before_action only: [:create, :delete, :modify] do
     doorkeeper_authorize! :administrator
   end
 
   # Only authorized applications can retrieve
   # sample resources
 
-  before_action only [:retrieve_by_id, :retrieve_set, :search] do
+  before_action only: [:retrieve_by_id, :retrieve_set, :search] do
     doorkeeper_authorize! :administrator, :client
   end
 
@@ -51,7 +51,7 @@ class Api::SampleController < ApplicationController
 
   def delete
     # Validate ID
-    unless params.has_key(:id)
+    unless params.has_key?(:id)
       @error = Error.create(
           :message => 'No ID was provided.',
           :path => request.env['PATH_INFO'],
@@ -78,7 +78,7 @@ class Api::SampleController < ApplicationController
 
   def retrieve_by_id
     # Validate ID
-    unless params.has_key(:id)
+    unless params.has_key?(:id)
       @error = Error.create(
           :message => 'No ID was provided.',
           :path => request.env['PATH_INFO'],

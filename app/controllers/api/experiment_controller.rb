@@ -1,19 +1,19 @@
 class Api::ExperimentController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-  before_action only [:create, :modify, :delete] do
+  before_action only: [:create, :modify, :delete] do
     doorkeeper_authorize! :administrator
   end
 
-  before_action only [:retrieve] do
+  before_action only: [:retrieve] do
     doorkeeper_authorize! :administrator, :client
   end
 
   def create
     # Validate request
-    unless params.has_key?(:name) \
-           && params.has_key?(:tags) \
-           && params.has_key?(:samples)
+    unless params.key?(:name) \
+           && params.key?(:tags) \
+           && params.key?(:samples)
       @error = Error.create(
           :message => 'No data was provided. Did you set your Content-Type header?',
           :path => request.env['PATH_INFO'],
@@ -49,7 +49,7 @@ class Api::ExperimentController < ApplicationController
 
   def modify
     # Validate ID
-    unless params.has_key(:id)
+    unless params.has_key?(:id)
       @error = Error.create(
           :message => 'No ID was provided.',
           :path => request.env['PATH_INFO'],
@@ -93,7 +93,7 @@ class Api::ExperimentController < ApplicationController
 
   def delete
     # Validate ID
-    unless params.has_key(:id)
+    unless params.has_key?(:id)
       @error = Error.create(
           :message => 'No ID was provided.',
           :path => request.env['PATH_INFO'],
@@ -120,7 +120,7 @@ class Api::ExperimentController < ApplicationController
 
   def retrieve
     # Validate ID
-    unless params.has_key(:id)
+    unless params.key?(:id)
       @error = Error.create(
           :message => 'No ID was provided.',
           :path => request.env['PATH_INFO'],

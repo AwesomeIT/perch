@@ -2,7 +2,7 @@ class Api::ScoreController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   before_action do
-    doorkeeper_authorize! :administrator, :client
+    doorkeeper_authorize! :administrator, :participant
   end
 
   def create
