@@ -24,7 +24,7 @@ class Dashboard::SampleController < ApplicationController
       @chart_score_rating = ''
       @chart_score_id = ''
 
-      @sample.scores.each do |score|
+      @sample.scores.last(40).each do |score|
         if @chart_score_rating.blank?
           @chart_score_rating << score.rating.to_s
           @chart_score_id << score.id.to_s
