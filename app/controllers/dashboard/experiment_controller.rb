@@ -46,12 +46,10 @@ class Dashboard::ExperimentController < ApplicationController
       flash[:error] = 'Experiment URL is not valid / experiment not found.'
       redirect_to '/dashboard/experiment/index'
     ensure
-    params[:experiment_samples][:id].each do |sample_id|
-      unless sample_id.blank?
-        @experiment.samples << Sample.find(sample_id)
+      params[:experiment_samples][:id].each do |sample_id|
+          @experiment.samples << Sample.find(sample_id) unless sample_id.blank?
       end
-    end
-    @experiment.save!
+      @experiment.save!
 
       flash[:notice] = "Experiment successfully changed!"
       redirect_to "/dashboard/experiments/#{@experiment.id}"
@@ -66,9 +64,7 @@ class Dashboard::ExperimentController < ApplicationController
       redirect_to '/dashboard/experiment/index'
     ensure
       params[:experiment_samples][:id].each do |sample_id|
-        unless sample_id.blank?
-          @experiment.samples.delete(Sample.find(sample_id))
-        end
+          @experiment.samples.delete(Sample.find(sample_id)) unless sample_id.blank?
       end
       @experiment.save!
 
