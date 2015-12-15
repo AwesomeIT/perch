@@ -30,7 +30,7 @@ class Dashboard::ExperimentController < ApplicationController
       redirect_to '/dashboard/experiment/index'
     ensure
       @experiment.name = params[:experiment][:name]
-      @experiment.tags = params[:experiment][:tags]
+      @experiment.tag_list = params[:experiment][:tags]
       @experiment.expiry_date = params[:experiment][:expiry_date]
       @experiment.save!
 

@@ -3,10 +3,8 @@ class Sample < ActiveRecord::Base
   has_and_belongs_to_many :experiments, join_table: 'experiments_samples', :uniq => true
   has_many :participants, through: :scores
 
-  acts_as_taggable_on :tags
-
   validates :name, presence: true
-  validates :tags, presence: true
+  default_scope { order('id DESC') }
 
   has_attached_file :audio, :storage => :s3, :s3_credentials => {
       :bucket => Rails.application.secrets.aws_s3_bucket,
@@ -24,6 +22,8 @@ class Sample < ActiveRecord::Base
   # validates_attachment_content_type :audio, content_type: "*/*"
 
   do_not_validate_attachment_file_type :audio
+
+  acts_as_taggable
 
   def sample_display
     "ID: #{id} Name: #{name}"

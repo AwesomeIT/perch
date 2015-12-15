@@ -1,9 +1,10 @@
 class Participant < ActiveRecord::Base
-  validates :username, :uniqueness => true
-
   has_many :experiments, through: :scores
   has_many :participants, through: :scores
   has_many :scores
+
+  validates :username, :uniqueness => true
+  default_scope { order('id DESC') }
 
   # For data export
   def self.as_csv

@@ -47,7 +47,7 @@ class Dashboard::SampleController < ApplicationController
       redirect_to '/dashboard/samples/index'
     ensure
       @sample.name = params[:sample][:name]
-      @sample.tags = params[:sample][:tags]
+      @sample.tag_list = params[:sample][:tags]
       @sample.expected_score = params[:sample][:expected_score]
       @sample.save!
 
