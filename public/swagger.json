@@ -1,0 +1,458 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "BirdFeed",
+    "description": "Provide for and analyze metrics on the quality of spoken English.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "David Stancu, Paulina Levit",
+      "email": "dstancu@nyu.edu"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/mach-kernel/birdfeed/blob/master/LICENSE"
+    }
+  },
+  "host": "birdfeed-staging.herokuapp.com",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "birdcage": {
+      "type": "oauth2",
+      "authorizationUrl": "https://birdfeed-staging.herokuapp.com/oauth",
+      "flow": "implicit",
+      "scopes": {
+        "client": "Allows a BirdFeed consumer to register participants",
+        "participant": "Allows a Participant resource to record scores from a client, retrieve samples and experiments",
+        "administrator": "Allows unrestricted access to all resources"
+      }
+    }
+  },
+  "basePath": "/v1",
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/sample": {
+      "get": {
+        "summary": "Retrieve samples",
+        "description": "Retrieve a list of audio sample resources. By default, a limit of 10 samples are returned. These will be the most recent samples created.\n",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of audio samples to return",
+            "type": "integer"
+          }
+        ],
+        "tags": [
+          "Samples"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of samples",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Sample"
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "birdcage": [
+              "participant",
+              "user",
+              "administrator"
+            ]
+          }
+        ]
+      }
+    },
+    "/sample/set": {
+      "post": {
+        "summary": "Retrieve a set of audio samples",
+        "description": "Retrieve a set of audio sample resources by ID. If a resource cannot be found, that resource will not be returned. Upon passing an empty array or an array with all invalid IDs, an empty set will be returned.\n",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "body",
+            "description": "Array of audio sample IDs",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "Samples"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of the desired samples.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Sample"
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "birdcage": [
+              "participant",
+              "user",
+              "administrator"
+            ]
+          }
+        ]
+      }
+    },
+    "/sample/{id}": {
+      "get": {
+        "summary": "Audio samples",
+        "description": "Retrieve an audio sample by its ID\n",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of audio sample resource",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "tags": [
+          "Samples"
+        ],
+        "responses": {
+          "200": {
+            "description": "Modified Sample resource",
+            "schema": {
+              "$ref": "#/definitions/Sample"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "birdcage": [
+              "user",
+              "administrator"
+            ]
+          }
+        ]
+      }
+    },
+    "/experiment/{id}": {
+      "get": {
+        "summary": "Retrieve experiment by ID",
+        "description": "Retrieves an experiment resource by its ID\n",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of experiment resource",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Experiments"
+        ],
+        "responses": {
+          "200": {
+            "description": "An experiment resource",
+            "schema": {
+              "$ref": "#/definitions/Experiment"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "birdcage": [
+              "client",
+              "administrator"
+            ]
+          }
+        ]
+      }
+    },
+    "/scores/record": {
+      "post": {
+        "summary": "Record a score",
+        "description": "Record the score of an audio sample. Once a score is recorded it can neither be modified nor removed.\n",
+        "parameters": [
+          {
+            "name": "scores",
+            "in": "body",
+            "description": "An array of Score resources",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Score"
+              }
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "Scores"
+        ],
+        "responses": {
+          "201": {
+            "description": "The ID of the score recorded",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "birdcage": [
+              "participant"
+            ]
+          }
+        ]
+      }
+    },
+    "/participant/register": {
+      "post": {
+        "summary": "Register a participant",
+        "description": "Register a participant / new user from a client to the BirdFeed API. \n",
+        "parameters": [
+          {
+            "name": "participant",
+            "in": "body",
+            "description": "Data for new participant resource",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "Participants"
+        ],
+        "responses": {
+          "201": {
+            "description": "The ID of the newly created Participant resource",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "birdcage": [
+              "client",
+              "administrator"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Sample": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Unique ID for each audio sample"
+        },
+        "name": {
+          "type": "string",
+          "description": "Filename of audio sample"
+        },
+        "s3_url": {
+          "type": "string",
+          "description": "AWS link to location of audio sample"
+        },
+        "date_added": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of when sample was added"
+        },
+        "total_scores": {
+          "type": "integer",
+          "description": "Number of times that this sample has been graded in an experiment"
+        },
+        "avg_score": {
+          "type": "number",
+          "description": "Average linguistic quality of audio sample"
+        },
+        "expected_score": {
+          "type": "number",
+          "description": "Expected linguistic quality score of audio sample"
+        },
+        "tag_list": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Tags describing audio sample",
+          "maximum": 5
+        }
+      }
+    },
+    "Experiment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Unique ID for each experiment"
+        },
+        "name": {
+          "type": "string",
+          "description": "User-defined name for experiment",
+          "maximum": 80
+        },
+        "date_created": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of when experiment was created"
+        },
+        "expiry_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Expiry date of experiment"
+        },
+        "tag_list": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Tags describing the experiment"
+        },
+        "samples": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The audio samples used for scoring"
+        }
+      }
+    },
+    "Score": {
+      "type": "object",
+      "properties": {
+        "participant_id": {
+          "type": "integer",
+          "description": "The ID of the participant"
+        },
+        "sample_id": {
+          "type": "integer",
+          "description": "The ID of the sample being scored"
+        },
+        "experiment_id": {
+          "type": "integer",
+          "description": "The ID of the experiment the score belongs to"
+        },
+        "rating": {
+          "type": "number",
+          "format": "double",
+          "maximum": 10,
+          "minimum": 0,
+          "description": "The rating of the sample, 1 indicating perfect English speech, 0 indicating indiscernable speech"
+        }
+      }
+    },
+    "Participant": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "The unique ID of the participant"
+        },
+        "username": {
+          "type": "string",
+          "description": "A unique user defined name"
+        },
+        "salt": {
+          "type": "string",
+          "description": "A salt of the plaintext password"
+        },
+        "date_created": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of when participant was created"
+        },
+        "quality": {
+          "type": "number",
+          "format": "double",
+          "description": "The quality of the participants ratings"
+        }
+      }
+    },
+    "Error": {
+      "type": "integer",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique ID for error message"
+        },
+        "message": {
+          "type": "string",
+          "description": "Details about the error encountered"
+        },
+        "path": {
+          "type": "string",
+          "description": "Request target at time of error"
+        },
+        "request": {
+          "type": "object",
+          "description": "The body of the request, if present"
+        }
+      }
+    }
+  }
+}
