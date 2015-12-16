@@ -11,7 +11,7 @@ namespace :swagger_ui do
 
 	task :fetch_schema do
 		p "Fetching latest schema from birdfeed/api-schema"
-		unless system "git clone https://github.com/birdfeed/api-schema"
+		unless system "git clone https://github.com/birdfeed/api-schema -b heroku"
 			abort "Something went wrong"
 		end
 
