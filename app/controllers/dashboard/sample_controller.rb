@@ -59,7 +59,7 @@ class Dashboard::SampleController < ApplicationController
   private
 
   def sample_params
-    params.require(:sample).permit(:audio, :name, :tags, :expected_score)
+    params.require(:sample).permit(:audio, :name, :tag_list, :expected_score)
   end
 
 end

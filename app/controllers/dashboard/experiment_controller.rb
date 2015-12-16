@@ -76,7 +76,7 @@ class Dashboard::ExperimentController < ApplicationController
   private
 
   def experiment_params
-    params.require(:experiment).permit(:name, :tags, :expiry_date)
+    params.require(:experiment).permit(:name, :tag_list, :expiry_date)
   end
 
   def experiment_sample_params
