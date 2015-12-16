@@ -77,7 +77,6 @@
         if(key && key.trim() != "") {
             var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization("Authorization", "Bearer " + key, "header");
             window.swaggerUi.api.clientAuthorizations.add("oauth_header", apiKeyAuth);
-            console.log("added key " + key);
         }
       }
 

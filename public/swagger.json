@@ -66,15 +66,16 @@
             }
           }
         },
-        "security": [
-          {
-            "birdcage": [
-              "participant",
-              "user",
-              "administrator"
-            ]
-          }
-        ]
+        "authorizations": {
+          "birdcage": [
+            {
+              "scope": "client"
+            },
+            {
+              "scope": "administrator"
+            }
+          ]
+        }
       }
     },
     "/sample/set": {
@@ -115,15 +116,16 @@
             }
           }
         },
-        "security": [
-          {
-            "birdcage": [
-              "participant",
-              "user",
-              "administrator"
-            ]
-          }
-        ]
+        "authorizations": {
+          "birdcage": [
+            {
+              "scope": "client"
+            },
+            {
+              "scope": "administrator"
+            }
+          ]
+        }
       }
     },
     "/sample/{id}": {
@@ -156,14 +158,16 @@
             }
           }
         },
-        "security": [
-          {
-            "birdcage": [
-              "user",
-              "administrator"
-            ]
-          }
-        ]
+        "authorizations": {
+          "birdcage": [
+            {
+              "scope": "client"
+            },
+            {
+              "scope": "administrator"
+            }
+          ]
+        }
       }
     },
     "/experiment/{id}": {
@@ -196,14 +200,16 @@
             }
           }
         },
-        "security": [
-          {
-            "birdcage": [
-              "client",
-              "administrator"
-            ]
-          }
-        ]
+        "authorizations": {
+          "birdcage": [
+            {
+              "scope": "client"
+            },
+            {
+              "scope": "administrator"
+            }
+          ]
+        }
       }
     },
     "/scores/record": {
@@ -241,13 +247,16 @@
             }
           }
         },
-        "security": [
-          {
-            "birdcage": [
-              "participant"
-            ]
-          }
-        ]
+        "authorizations": {
+          "birdcage": [
+            {
+              "scope": "client"
+            },
+            {
+              "scope": "administrator"
+            }
+          ]
+        }
       }
     },
     "/participant/register": {
@@ -290,14 +299,16 @@
             }
           }
         },
-        "security": [
-          {
-            "birdcage": [
-              "client",
-              "administrator"
-            ]
-          }
-        ]
+        "authorizations": {
+          "birdcage": [
+            {
+              "scope": "client"
+            },
+            {
+              "scope": "administrator"
+            }
+          ]
+        }
       }
     }
   },
