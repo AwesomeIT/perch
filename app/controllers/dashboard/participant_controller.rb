@@ -1,4 +1,6 @@
 class Dashboard::ParticipantController < ApplicationController
+  before_filter :authenticate_user!
+  
   def index
     @participants = Participant.paginate(:page => params[:page], :per_page => 15)
   end

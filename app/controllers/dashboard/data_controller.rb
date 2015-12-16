@@ -1,6 +1,7 @@
 require 'csv'
 
 class Dashboard::DataController < ApplicationController
+  before_filter :authenticate_user!
   def index
     if !Participant.first \
       or !Experiment.first \

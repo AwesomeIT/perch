@@ -1,4 +1,5 @@
 class Dashboard::ExperimentController < ApplicationController
+  before_filter :authenticate_user!
   def index
     @experiments = Experiment.paginate(:page => params[:page], :per_page => 15)
   end

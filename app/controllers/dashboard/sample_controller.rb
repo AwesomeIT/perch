@@ -1,4 +1,6 @@
 class Dashboard::SampleController < ApplicationController
+  before_filter :authenticate_user!
+  
   def index
     @samples = Sample.paginate(:page => params[:page], :per_page => 15)
   end
