@@ -88,7 +88,12 @@ class Api::SampleController < ApplicationController
     end
 
     begin
-      @found_sample = Sample.find(params[:id])
+      sample = Sample.find(params[:id])
+
+      @data = sample.attributes
+      @data[:s3_url] = sample.audio.url
+      @data[:tag_list] = sample.tag_list
+
     rescue ActiveRecord::RecordNotFound
       @error = Error.create(
           :message => 'ID not found.',
@@ -98,25 +103,41 @@ class Api::SampleController < ApplicationController
       render(status: 500, json: @error) and return
     ensure
       # Everything is OK
-      render(status: 200, json: @found_sample) and return
+      render(status: 200, json: @data) and return
     end
   end
 
-  def retrieve_set
-    @found_samples = []
-    for id in params[:ids] do
-      @found_samples << Sample.find(id)
+  def set_retrieve
+    @data = []
+    for id in params[:ids]
+      sample = Sample.find(id)
+      if sample
+        s_attr = sample.attributes
+        s_attr[:s3_url] = sample.audio.url
+        s_attr[:tag_list] = sample.tag_list
+        @data << s_attr
+      end
     end
-    render(status: 200, json: @found_samples)
+    render(status: 200, json: @data)
   end
 
   def retrieve
-    @num_samples = 10
+    num_samples = 10
     if params.has_key?(:limit)
-      @num_samples = params[:limit]
+      num_samples = params[:limit]
     end
-    @found_samples = Sample.last(@num_samples)
-    render(status: 200, json: @found_samples)
+
+    samples = Sample.first(num_samples)
+    @data = []
+
+    samples.each do |sample|
+      s_attr = sample.attributes
+      s_attr[:s3_url] = sample.audio.url
+      s_attr[:tag_list] = sample.tag_list
+      @data << s_attr
+    end
+
+    render(status: 200, json: @data)
   end
 
   def modify

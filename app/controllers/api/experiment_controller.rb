@@ -130,7 +130,11 @@ class Api::ExperimentController < ApplicationController
     end
 
     begin
-      @found_experiment = Experiment.find(params[:id])
+      experiment = Experiment.find(params[:id])
+
+      @data = experiment.attributes
+      @data[:tag_list] = experiment.tag_list
+      @data[:samples] = experiment.samples.pluck(:id)
     rescue ActiveRecord::RecordNotFound
       @error = Error.create(
           :message => 'ID not found.',
@@ -140,7 +144,7 @@ class Api::ExperimentController < ApplicationController
       render(status: 500, json: @error) and return
     ensure
       # Everything is OK
-      render(status: 200, json: @found_experiment) and return
+      render(status: 200, json: @data) and return
     end
   end
 end
