@@ -1,5 +1,11 @@
-Perch
+Perch (DEPRECATED, SEE NOTES)
 ===========
+
+This project has been deprecated by the new API and its components. REST services are now provided by [turaco](https://github.com/birdfeed/turaco), intensive compute tasks are facilitated by [myna](https://github.com/birdfeed/myna), and all database models can be found in [kagu](https://github.com/birdfeed/kagu).
+
+------------------
+
+
 The BirdFeed API and management panel, powered by Rails 4+, authentication by Devise, and OAuth by Doorkeeper. 
 
 # Deploying
